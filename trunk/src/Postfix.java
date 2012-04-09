@@ -2,13 +2,13 @@ import java.util.*;
 
 public class Postfix {
 
-	//output queue for shunting-yard algorithm
+	// output queue for shunting-yard algorithm
 	private static ArrayList<String> postfix = new ArrayList<String>();
-	//stack used for shunting yard algorithm
+	// stack used for shunting yard algorithm
 	private static Stack<String> stack = new Stack<String>();
-	//Associativity of operators
+	// Associativity of operators
 	private static final int LEFT_ASSOC = 0, RIGHT_ASSOC = 1;
-	//Map to hold operator properties
+	// Map to hold operator properties
 	private static final Map<String, int[]> OPERATORS = new HashMap<String, int[]>();
 	// contains the precedence and associativity of the operators.
 	static {
@@ -19,6 +19,7 @@ public class Postfix {
 		OPERATORS.put("/", new int[] { 5, LEFT_ASSOC });
 		OPERATORS.put("%", new int[] { 5, LEFT_ASSOC });
 		OPERATORS.put("^", new int[] { 10, RIGHT_ASSOC });
+		OPERATORS.put("sqrt:", new int[] { 15, LEFT_ASSOC });
 	}
 
 	/**
@@ -32,16 +33,22 @@ public class Postfix {
 	public static String[] InfixtoPostfix(String[] infix) {
 		return convert(infix);
 	}
+
 	/**
 	 * Shunting-Yard algorithm for converting infix to postfix expressions.
-	 * @param infix - String Array in infix order.
+	 * 
+	 * @param infix
+	 *            - String Array in infix order.
 	 * @return String Array in postfix order.
+	 * @throws Exception
 	 */
-	public static String[] convert(String[] infix) {
-		for (int i = 0; i <infix.length; i++) {
-			
+	public static String[] convert(String[] infix){
+		for (int i = 0; i < infix.length; i++) {
+			// check to see if token is a number, adds the token to postfix
+			// array if it is.
 			if (isNumber(infix[i])) {
 				postfix.add(infix[i]);
+				// check to see if token is an operator
 			} else if (isOperator(infix[i])) {
 				// If token is an operator
 				while (!stack.isEmpty() && isOperator(stack.peek())) {
@@ -61,16 +68,29 @@ public class Postfix {
 			} else if (isLeftParenthesis(infix[i])) {
 				stack.push(infix[i]);
 			} else if (isRightParenthesis(infix[i])) {
-				 while (!stack.isEmpty() && !stack.peek().equals("(")) {
-		                postfix.add(stack.pop()); 
-		            }
-		            stack.pop();
-		        } 
-
+				//exception: missing parenthesis
+				if(!stack.contains("(")){
+					System.out.println("missing matching parenthesis");
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					System.exit(0);
+				}
+				while (!stack.isEmpty() && !stack.peek().equals("(")) {
+					postfix.add(stack.pop());
+				}
+				stack.pop();
+			}else{
+				System.out.println("invalid input");
 			}
-		  while (!stack.isEmpty()) {
-		        postfix.add(stack.pop()); // [S13]
-		    }
+
+		}
+		while (!stack.isEmpty()) {
+			postfix.add(stack.pop()); // [S13]
+		}
 		String[] postfixA = new String[postfix.size()];
 		postfix.toArray(postfixA);
 		return postfixA;
@@ -96,7 +116,7 @@ public class Postfix {
 	private static boolean isOperator(String string) {
 		if (string.equals("+") || string.equals("-") || string.equals("sqrt:")
 				|| string.equals("*") || string.equals("^")
-				|| string.equals("/")) {
+				|| string.equals("/")||string.equals("sqrt:")) {
 			return true;
 		} else {
 			return false;
@@ -122,27 +142,27 @@ public class Postfix {
 		}
 		return OPERATORS.get(token1)[0] - OPERATORS.get(token2)[0];
 	}
-	/**checks whether the string is a number
+
+	/**
+	 * checks whether the string is a number
 	 * 
-	 * @param string- input string
+	 * @param string
+	 *            - input string
 	 * @return Boolean value indicating whether the string is a number or not.
 	 */
 	private static boolean isNumber(String string) {
 		Boolean number = true;
-		try{
+		try {
 			Integer.parseInt(string);
-		}catch(Exception e){
+		} catch (Exception e) {
 			number = false;
 		}
 
-
 		if (string.equals("e") || string.equals("pi")) {
 			return true;
-		}
-		else if (number) {
-		return true;
-		} 
-		else {
+		} else if (number) {
+			return true;
+		} else {
 			return false;
 		}
 	}
