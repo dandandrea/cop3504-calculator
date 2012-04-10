@@ -1,4 +1,5 @@
 
+
 public class postfixdriver {
 
 	/**
@@ -6,7 +7,7 @@ public class postfixdriver {
 	 */
 	public static void main(String[] args) {
 		String[] infix = {"3","*","(","2","+","sqrt:","4",")"};
-		
+		Tokenizer.tokenizeExpression("3 * (2 + sqrt:4)").toArray(infix);
 		
 		
 		String[] pfix= Postfix.convert(infix);
