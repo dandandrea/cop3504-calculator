@@ -6,8 +6,6 @@ public class UI
 	static String input;
 	static String choice;
 	static String expression;
-	// Test commend for Subversion 
-	// it worked
 	
 	public static void main(String[] args) 
 	{	
