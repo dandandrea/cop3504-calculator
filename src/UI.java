@@ -6,15 +6,21 @@ public class UI
 	static String input;
 	static String choice;
 	static String expression;
+	static Calculator calculator = new Calculator();
 	
 	public static void main(String[] args) 
 	{	
 		System.out.println("Welcome to the Calculator!");
 		input = sc.nextLine();
-		
-		while(!(input.equals("Exit")))
+	/*	
+		calculator.addHistoryItem(new HistoryItem("1+0", "235"));
+		calculator.addHistoryItem(new HistoryItem("1+1", "3"));
+		calculator.addHistoryItem(new HistoryItem("1+2", "123214"));
+		calculator.addHistoryItem(new HistoryItem("1+3", "54"));
+	*/	
+		while(!(input.equalsIgnoreCase("Exit")))
 		{
-			if (input.equals("Help"))
+			if (input.equalsIgnoreCase("Help"))
 			{
 				Help();
 				System.out.println("Welcome to the Calculator!");
@@ -40,7 +46,7 @@ public class UI
 		System.out.println("Choose from the following:");
 		System.out.println("1. See examples of good input.");
 		System.out.println("2. See supported operations and numbers.");
-		System.out.println("3. See the previous History Item.");
+		System.out.println("3. See the previous History Items.");
 		System.out.println("4. Set History Item.");
 		System.out.println();
 		
@@ -68,13 +74,33 @@ public class UI
 		}
 		else if(choice.equals("3"))
 		{
-			HistoryItem.Getters();
+			for(int i = 0; i < calculator.getHistory().size(); i++)
+			{
+				System.out.println((i+1) + ". " + calculator.getHistory().get(i).getExpression() + "=" + calculator.getHistory().get(i).getAnswer());
+			}
 			System.out.println();
+			
 		}
 		else if(choice.equals("4"))
 		{
-			HistoryItem.Setters();
-			System.out.println();
+			System.out.println("Choose a history item.");
+			String choiceNum = sc.nextLine();
+			try {
+				if(Integer.parseInt(choiceNum) >= 1 && Integer.parseInt(choiceNum) <= calculator.getHistory().size())
+				{
+					calculator.setCurrentHistoryItem(Integer.parseInt(choiceNum) - 1);
+					System.out.println("You chose " + calculator.getHistory().get(Integer.parseInt(choiceNum) - 1).getAnswer());
+				}
+					
+				else
+					System.out.println("Please enter a number between 1 and " + calculator.getHistory().size());
+				System.out.println();
+			}
+			catch (NumberFormatException e) {
+				System.out.println("Please enter a valid number");
+				
+				System.out.println();
+			}
 		}
 		else;
 	}
