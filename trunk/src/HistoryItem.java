@@ -11,14 +11,13 @@ public class HistoryItem
 	this.answer = answer;
 	}
 	
-	public String getAnswer()
-	{
-		return answer;
-	}
-	
 	public String getExpression()
 	{
 		return expression;
 	}
-
+	
+	public String getAnswer()
+	{
+		return answer;
+	}
 }
