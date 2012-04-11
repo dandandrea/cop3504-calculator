@@ -1,11 +1,69 @@
 
 public class Fraction {
-	private String Numerator;
-	private String Denominator;
+	private Irrational Numerator;
+	private Irrational Denominator;
+	
+	
+	public Fraction (String expression){
+		String split[] = expression.split("/");
+		if (split.length == 2){
+			Numerator = new Irrational(split[0]);
+			Denominator = new Irrational(split[1]);
+		}
+		else {
+			Numerator = new Irrational(expression);
+			Denominator = new Irrational("1");
+		}
+		
+		
+		
+//		if (Math.isInteger(expression) == true){//case when only integer is entered
+//			Numerator = expression;
+//			Denominator = "1";
+//		}
+//		else if (split.length == 2){//case when fraction string is entered
+//			Numerator = split[0];
+//			Denominator = split[1];
+//		}
+		
+		//case when irrational is entered (e,pi)
+		//case when sqrt or ^ is used?
+		//else?
+	}
 	
 	public Fraction (String numerator, String denominator){
-		this.Numerator = denominator;
-		this.Denominator = denominator;
+		Numerator = new Irrational(numerator);
+		Denominator = new Irrational(denominator);
 	}
-
+	
+	public void setNumerator(String val){
+		Numerator = new Irrational(val);
+	}
+	
+	public void setDenominator(String val){
+		Denominator = new Irrational(val);
+	}
+	
+	public String getNumerator(){
+		return Numerator.toString();
+	}
+	
+	//eclipse said to make this 'visible', removed 'public' from method? potential for errors?
+	String getDenominator(){
+		return Denominator.toString();
+	}
+	
+	private void simplify(){
+		
+	}
+	
+	public String toString(){
+		if (Denominator.toString() == "1"){
+			return Numerator.toString();
+		}
+		else {
+			return (Numerator.toString() + "/" + Denominator.toString());
+		}
+	}
+	
 }
