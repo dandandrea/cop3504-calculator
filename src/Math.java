@@ -32,6 +32,7 @@ public class Math {
 					//Pushes result of add() into stack, while popping two previous elements.
 					operationStack.addFirst(add(operationStack.remove(), operationStack.remove()));
 				}
+				//Etc.
 				if(thisElement.equals("-")) {
 					
 				}

@@ -4,7 +4,11 @@ public class HistoryItem
 	private String expression;
 	private String answer;
 	
-	public static String Getters()
+	public HistoryItem(String expression, String answer) {
+		
+	}
+	
+	public String getAnswer()
 	{
 		return answer;
 	}
