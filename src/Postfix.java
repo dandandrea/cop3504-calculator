@@ -7,19 +7,20 @@ public class Postfix {
 	// stack used for shunting yard algorithm
 	private static Stack<String> stack = new Stack<String>();
 	// Associativity of operators
-	private static final int LEFT_ASSOC = 0, RIGHT_ASSOC = 1;
+	private static final int LEFT_ASSOC = 0, RIGHT_ASSOC = 1, UNIARY = 1,
+			BINARY = 0;
 	// Map to hold operator properties
 	private static final Map<String, int[]> OPERATORS = new HashMap<String, int[]>();
 	// contains the precedence and associativity of the operators.
 	static {
 		// Map<"token", []{precendence, associativity}>
-		OPERATORS.put("+", new int[] { 0, LEFT_ASSOC });
-		OPERATORS.put("-", new int[] { 0, LEFT_ASSOC });
-		OPERATORS.put("*", new int[] { 5, LEFT_ASSOC });
-		OPERATORS.put("/", new int[] { 5, LEFT_ASSOC });
-		OPERATORS.put("%", new int[] { 5, LEFT_ASSOC });
-		OPERATORS.put("^", new int[] { 10, RIGHT_ASSOC });
-		OPERATORS.put("sqrt:", new int[] { 15, LEFT_ASSOC });
+		OPERATORS.put("+", new int[] { 0, LEFT_ASSOC, BINARY });
+		OPERATORS.put("-", new int[] { 0, LEFT_ASSOC, BINARY });
+		OPERATORS.put("*", new int[] { 5, LEFT_ASSOC, BINARY });
+		OPERATORS.put("/", new int[] { 5, LEFT_ASSOC, BINARY });
+		OPERATORS.put("%", new int[] { 5, LEFT_ASSOC, BINARY });
+		OPERATORS.put("^", new int[] { 10, RIGHT_ASSOC, BINARY });
+		OPERATORS.put("sqrt:", new int[] { 15, LEFT_ASSOC, UNIARY });
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class Postfix {
 	 * @return String Array in postfix order.
 	 * @throws Exception
 	 */
-	public static String[] convert(String[] infix){
+	public static String[] convert(String[] infix) {
 		for (int i = 0; i < infix.length; i++) {
 			// check to see if token is a number, adds the token to postfix
 			// array if it is.
@@ -68,8 +69,8 @@ public class Postfix {
 			} else if (isLeftParenthesis(infix[i])) {
 				stack.push(infix[i]);
 			} else if (isRightParenthesis(infix[i])) {
-				//exception: missing parenthesis
-				if(!stack.contains("(")){
+				// exception: missing parenthesis
+				if (!stack.contains("(")) {
 					System.out.println("missing matching parenthesis");
 					try {
 						Thread.sleep(2000);
@@ -83,7 +84,7 @@ public class Postfix {
 					postfix.add(stack.pop());
 				}
 				stack.pop();
-			}else{
+			} else {
 				System.out.println("invalid input");
 			}
 
@@ -116,7 +117,7 @@ public class Postfix {
 	private static boolean isOperator(String string) {
 		if (string.equals("+") || string.equals("-") || string.equals("sqrt:")
 				|| string.equals("*") || string.equals("^")
-				|| string.equals("/")||string.equals("sqrt:")) {
+				|| string.equals("/") || string.equals("sqrt:")) {
 			return true;
 		} else {
 			return false;
@@ -143,6 +144,16 @@ public class Postfix {
 		return OPERATORS.get(token1)[0] - OPERATORS.get(token2)[0];
 	}
 
+	// check to see if the operator is binary or uniary
+	private static boolean isUniary(String operator) {
+		if (OPERATORS.get(operator)[3] == 1) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
 	/**
 	 * checks whether the string is a number
 	 * 
@@ -154,7 +165,7 @@ public class Postfix {
 		Boolean number = true;
 		try {
 			Integer.parseInt(string);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			number = false;
 		}
 
