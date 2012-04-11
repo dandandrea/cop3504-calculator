@@ -14,13 +14,13 @@ public class Postfix {
 	// contains the precedence and associativity of the operators.
 	static {
 		// Map<"token", []{precendence, associativity}>
-		OPERATORS.put("+", new int[] { 0, LEFT_ASSOC, BINARY });
-		OPERATORS.put("-", new int[] { 0, LEFT_ASSOC, BINARY });
-		OPERATORS.put("*", new int[] { 5, LEFT_ASSOC, BINARY });
-		OPERATORS.put("/", new int[] { 5, LEFT_ASSOC, BINARY });
-		OPERATORS.put("%", new int[] { 5, LEFT_ASSOC, BINARY });
-		OPERATORS.put("^", new int[] { 10, RIGHT_ASSOC, BINARY });
-		OPERATORS.put("sqrt:", new int[] { 15, LEFT_ASSOC, UNIARY });
+		OPERATORS.put("+", new int[] { 0, LEFT_ASSOC });
+		OPERATORS.put("-", new int[] { 0, LEFT_ASSOC });
+		OPERATORS.put("*", new int[] { 5, LEFT_ASSOC });
+		OPERATORS.put("/", new int[] { 5, LEFT_ASSOC });
+		OPERATORS.put("%", new int[] { 5, LEFT_ASSOC });
+		OPERATORS.put("^", new int[] { 10, RIGHT_ASSOC });
+		OPERATORS.put("sqrt:", new int[] { 10, LEFT_ASSOC });
 	}
 
 	/**
@@ -32,7 +32,45 @@ public class Postfix {
 	 * @return String Array that is in postfix.
 	 */
 	public static String[] InfixtoPostfix(String[] infix) {
-		return convert(infix);
+		String[] nfix = NegativeParse(infix);
+	
+		return convert(nfix);
+	}
+
+	/**
+	 * Discerns the negative sign from the minus sign in the infix expression
+	 * 
+	 * @param infix
+	 * @return infix expression that has been processed.
+	 */
+	public static String[] NegativeParse(String[] infix) {
+		ArrayList<String> parseholder = new ArrayList<String>();
+		for (int i = 0; i < infix.length; i++) {
+			if (isNumber(infix[i]) || isLeftParenthesis(infix[i])
+					|| isRightParenthesis(infix[i])) {
+				parseholder.add(infix[i]);
+			} else if (isOperator(infix[i])) {
+				if (infix[i].equals("-")) {
+					if (i > 0) {
+						if (isOperator(infix[i - 1])
+								|| isLeftParenthesis(infix[i - 1])) {
+							parseholder.add("-1");
+							parseholder.add("*");
+						} else {
+							parseholder.add(infix[i]);
+						}
+					} else {
+						parseholder.add("-1");
+						parseholder.add("*");
+					}
+				} else {
+					parseholder.add(infix[i]);
+				}
+			}
+		}
+		String[] NegativeParsed = new String[parseholder.size()];
+		parseholder.toArray(NegativeParsed);
+		return NegativeParsed;
 	}
 
 	/**
@@ -144,16 +182,6 @@ public class Postfix {
 		return OPERATORS.get(token1)[0] - OPERATORS.get(token2)[0];
 	}
 
-	// check to see if the operator is binary or uniary
-	private static boolean isUniary(String operator) {
-		if (OPERATORS.get(operator)[3] == 1) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
-
 	/**
 	 * checks whether the string is a number
 	 * 
@@ -164,8 +192,10 @@ public class Postfix {
 	private static boolean isNumber(String string) {
 		Boolean number = true;
 		try {
+
 			Integer.parseInt(string);
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			number = false;
 		}
 
