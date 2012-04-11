@@ -11,7 +11,7 @@ public class HistoryItem
 	
 	public static void Setters()
 	{
-		HistoryItem.add(currentHistoryItem, answer);
-	}
+		HistoryItem.set(currentHistoryItem, answer);
+	} 
 	
 }
