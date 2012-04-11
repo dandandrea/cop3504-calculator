@@ -6,12 +6,12 @@ public class HistoryItem
 	
 	public static String Getters()
 	{
-		
+		return HistoryItem.get(currentHistoryItem);
 	}
 	
 	public static void Setters()
 	{
-		
+		HistoryItem.add(currentHistoryItem, answer);
 	}
 	
 }
