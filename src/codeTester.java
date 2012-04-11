@@ -16,11 +16,8 @@ public class codeTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String op = "-";
-		if (isOperator(op))
-			System.out.println(op + " is an operator!");
-		else
-			System.out.println(op + " is NOT an operator!");
+		SymbolicMath test = new SymbolicMath();
+		System.out.println(test.calculate(new String[]{"2", "2", "+"}));
 	}
 
 }

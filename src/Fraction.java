@@ -4,7 +4,7 @@ public class Fraction {
 	private Irrational Denominator;
 	
 	public Fraction (String expression){
-		String split[] = expression.split("/");
+		String split[] = expression.split("\\/");
 		if (split.length == 2){
 			Numerator = new Irrational(split[0]);
 			Denominator = new Irrational(split[1]);
@@ -47,13 +47,13 @@ public class Fraction {
 		this.simplify();
 	}
 	
-	public String getNumerator(){
-		return Numerator.toString();
+	public Irrational getNumerator(){
+		return Numerator;
 	}
 	
 	//eclipse said to make this 'visible', removed 'public' from method? potential for errors?
-	String getDenominator(){
-		return Denominator.toString();
+	public Irrational getDenominator(){
+		return Denominator;
 	}
 	
 	private void simplify(){
@@ -61,12 +61,21 @@ public class Fraction {
 	}
 	
 	public String toString(){
-		if (Denominator.toString() == "1"){
+		if (isWholeNumber(this)){
 			return Numerator.toString();
 		}
 		else {
 			return (Numerator.toString() + "/" + Denominator.toString());
 		}
+	}
+	
+	/**
+	 * Returns true if the denominator is equal to (exactly) 1.
+	 * @param frac
+	 * @return
+	 */
+	public static boolean isWholeNumber(Fraction frac) {
+		return (frac.getDenominator().toString() == "1");
 	}
 	
 }
