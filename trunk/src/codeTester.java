@@ -16,7 +16,7 @@ public class codeTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String op = "+";
+		String op = "-";
 		if (isOperator(op))
 			System.out.println(op + " is an operator!");
 		else
