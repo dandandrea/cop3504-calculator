@@ -70,28 +70,11 @@ public class Math {
 		
 	}
 	
-	private String add(String arg1, String arg2){
-		// need to determine what strings are, then pass to more specific
-		// everything can be represented as a fraction
-		// send to method returnFrac, will take the input string and return a fraction type, 
-		// then can add using fraction method for addition
-		// then detect if denominator is 1 for return string, if so, just return numerator as string
-		Fraction arg1 = returnFrac()
-		
-	}
-	
-	private Fraction returnFrac(String input){
-		// need to account for different cases -- just integer, irrationals (sqrts:), actual fractions
-		// first case, integers
-		if (isInteger(input) == true){
-			Fraction output = new Fraction(input,"1");
-		}
-	}
-	
-	private boolean isInteger(String input){
+	//eclipse said to make this 'visible', removed 'public' from method? potential for errors?
+	static boolean isInteger(String input){
 		boolean val = false;
 		try {
-			int x = Integer.parseInt(input);
+			int x = Integer.parseInt(input); // tries to make the string an integer
 			val = true;
 		} catch (NumberFormatException e){
 			val = false;
@@ -99,7 +82,44 @@ public class Math {
 			return val;
 		}
 	}
-//	private static Fraction add(Irrational a1, Fraction a2){
-		
-//	}
+	
+	/**
+	 * Master add method called by calculate method
+	 * @param String input 1 from the calculate stack
+	 * @param String input 2 from the calculate stack
+	 * @return Returns string to be pushed on 
+	 */
+	private static String add(String arg1, String arg2){
+		Fraction add1 = new Fraction(arg1);
+		Fraction add2 = new Fraction(arg2);
+		Fraction ans = addFrac(add1,add2);
+		return ans.toString();
+	}
+	
+	private static Fraction addFrac(Fraction f1, Fraction f2){
+		// First case addresses straight integer addition
+		if ((f1.getDenominator() == "1") && (f2.getDenominator() == "1")){
+			f1.setNumerator(Integer.toString(Integer.parseInt(f1.getNumerator())+Integer.parseInt(f2.getNumerator())));
+			return f1;
+		}
+		else if ((f1.allInt == true) && (f2.allInt == true)){
+			
+		}
+		else{
+			return f2;
+		}
+	}
+	
+	
+	//For testing purposes
+	public static void main(String[] args) {
+		String arg1 = "2233";
+		String arg2 = "44/55";
+		String[] split,split2;
+		split = arg1.split("/");
+		split2 = arg2.split("/");
+		System.out.println(split.length);
+		System.out.println(split2.length);
+			        
+	}
 }
