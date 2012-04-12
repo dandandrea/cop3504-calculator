@@ -3,71 +3,86 @@ import java.util.Scanner;
 public class UI 
 {
 	static Scanner sc = new Scanner(System.in);
-	static String input;
+	static String input = "";
 	static String choice;
 	static String expression;
 	static Calculator calculator = new Calculator();
-	
+
 	public static void main(String[] args) 
 	{	
-		System.out.println("Welcome to the Calculator! Choose from the following: ");
-		System.out.println("Exit");
-		System.out.println("Help");
-		System.out.println("History");
-		input = sc.nextLine();
-		
+		// For now we'll simply load some dummy data for the history
 		calculator.addHistoryItem(new HistoryItem("1+0", "235"));
 		calculator.addHistoryItem(new HistoryItem("1+1", "3"));
 		calculator.addHistoryItem(new HistoryItem("1+2", "123214"));
 		calculator.addHistoryItem(new HistoryItem("1+3", "54"));
-		
-		while(!(input.equalsIgnoreCase("Exit")))
-		{
-			if (input.equalsIgnoreCase("Help"))
+
+		// Display the welcome banner
+		System.out.println("Welcome to the Calculator!");
+		printMainMenu();
+
+		while (input != null && input.equalsIgnoreCase("Exit") == false && input.equalsIgnoreCase("Back") == false) {
+			input = sc.nextLine();
+
+			if (input.equalsIgnoreCase("Calculate"))
 			{
-				Help();
-				System.out.println("Welcome to the Calculator! Choose from the following: ");
-				System.out.println("Exit");
-				System.out.println("Help");
-				System.out.println("History");
-				System.out.println();
-				input = sc.nextLine();
+				calculate();
+				printMainMenu();
+			}
+			else if (input.equalsIgnoreCase("Help"))
+			{
+				help();
+				printMainMenu();
 			}
 			else if(input.equalsIgnoreCase("History"))
 			{
-				History();
-				System.out.println("Welcome to the Calculator! Choose from the following: ");
-				System.out.println("Exit");
-				System.out.println("Help");
-				System.out.println("History");
-				System.out.println();
-				input = sc.nextLine();
+				history();
+				printMainMenu();
+			}
+			else if(input.equalsIgnoreCase("Exit") || input.equalsIgnoreCase("Back"))
+			{
+				exit();
 			}
 			else
 			{
-				expression = sc.nextLine();
+				System.out.println("Unknown command \"" + input + "\".");
+				printMainMenu();
 			}
 		}
-			Exit();		
+	}
+
+	private static void calculate()
+	{
+		System.out.println("The answer is always 42 (Calculate not yet implemented)");
 	}
 	
-	private static void Exit()
+	private static void exit()
 	{
 		System.out.println("Bye!");
 		System.exit(0);
 	}
 	
-	private static void History()
+	private static void history()
 	{
-		System.out.println("Choose from the following:");
-		System.out.println("1. See the previous History Items.");
-		System.out.println("2. Set History Item.");
-		
-		choice = sc.nextLine();
-		History(choice);
+		choice = "";
+		while (choice != null && choice.equalsIgnoreCase("back") == false) {
+			System.out.println();
+			System.out.println("*** History menu ***");
+			System.out.println("Please choose from the following commands:");
+			System.out.println("1: See the previous History Items.");
+			System.out.println("2: Set History Item.");
+			System.out.println("Back: Go back to the main menu.");
+			System.out.println();
+
+			choice = sc.nextLine();
+			if (choice.equalsIgnoreCase("back")) {
+				break;
+			} else {
+				history(choice);
+			}
+		}
 	}
 	
-	private static void History(String choice)
+	private static void history(String choice)
 	{
 		if(choice.equals("1"))
 		{
@@ -75,12 +90,10 @@ public class UI
 			{
 				System.out.println((i+1) + ". " + calculator.getHistory().get(i).getExpression() + "=" + calculator.getHistory().get(i).getAnswer());
 			}
-			System.out.println();
-			
 		}
 		else if(choice.equals("2"))
 		{
-			System.out.println("Choose a history item.");
+			System.out.println("Pleae enter a history item number:");
 			String choiceNum = sc.nextLine();
 			try {
 				if(Integer.parseInt(choiceNum) >= 1 && Integer.parseInt(choiceNum) <= calculator.getHistory().size())
@@ -91,36 +104,45 @@ public class UI
 					
 				else
 					System.out.println("Please enter a number between 1 and " + calculator.getHistory().size());
-				System.out.println();
 			}
 			catch (NumberFormatException e) {
 				System.out.println("Please enter a valid number");
-				
-				System.out.println();
 			}
 		}
-		else;
+		else
+		{
+			System.out.println("Unknown command \"" + choice + "\".");
+		}
 	}
 	
-	private static void Help()
+	private static void help()
 	{
-		System.out.println("Choose from the following:");
-		System.out.println("1. See examples of good input.");
-		System.out.println("2. See supported operations and numbers.");
-		System.out.println();
-		
-		choice = sc.nextLine();
-		Help(choice);
+		choice = "";
+		while (choice != null && choice.equalsIgnoreCase("back") == false) {
+			System.out.println();
+			System.out.println("*** Help menu ***");
+			System.out.println("Please choose from the following commands:");
+			System.out.println("1: See examples of good input.");
+			System.out.println("2: See supported operations and numbers.");
+			System.out.println("Back: Go back to the main menu.");
+			System.out.println();
+
+			choice = sc.nextLine();
+			if (choice.equalsIgnoreCase("back")) {
+				break;
+			} else {
+				help(choice);
+			}
+		}
 	}
 
-	private static void Help(String choice)
+	private static void help(String choice)
 	{
 		if(choice.equals("1"))
 		{
 			System.out.println("(1/4)*(1/8)");
 			System.out.println("3^(-1/2)");
 			System.out.println("1/(2^(1/2))");
-			System.out.println();
 		}
 		else if(choice.equals("2"))
 		{
@@ -128,8 +150,21 @@ public class UI
 			System.out.println("Addition, Subtraction, Multiplication, Division, and Exponentiation.");
 			System.out.println("The supported numbers are: ");
 			System.out.println("Rational numbers and the irrational numbers pi and e.");
-			System.out.println();
 		}
-		else;
+		else
+		{
+			System.out.println("Unknown command \"" + choice + "\".");
+		}
+	}
+
+	private static void printMainMenu() {
+		System.out.println();
+		System.out.println("*** Main menu ***");
+		System.out.println("Please choose from the following commands:");
+		System.out.println("Calculate");
+		System.out.println("Help");
+		System.out.println("History");
+		System.out.println("Exit or Back");
+		System.out.println();
 	}
 }
