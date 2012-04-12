@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 
 
 public class postfixdriver {
@@ -13,8 +15,10 @@ public class postfixdriver {
 //			System.out.print(nfix[i]+", ");
 //		}
 //		System.out.print("]");
-		String[] infix = new String[Tokenizer.tokenizeExpression("-3 * (2 - sqrt:4)").size()];
-		Tokenizer.tokenizeExpression("-3 * (2 - sqrt:4)").toArray(infix);
+		Scanner buddy = new Scanner(System.in);
+		String sting = buddy.nextLine();
+		String[] infix = new String[Tokenizer.tokenizeExpression(sting).size()];
+		Tokenizer.tokenizeExpression(sting).toArray(infix);
 		
 //		String[] nfix = Postfix.NegativeParse(infix);
 //		System.out.print("[");
@@ -28,7 +32,10 @@ public class postfixdriver {
 		for(int i = 0; i<pfix.length;i++){
 			System.out.print(pfix[i]+", ");
 		}
-		System.out.print("]");
+		System.out.print("]");	
+		
+		
+		System.out.println(ApproximateMath.Approximate(pfix));
 		
 		
 
