@@ -7,7 +7,7 @@ public class SymbolicMath {
 	 * @param expression - String array of expression components (Must be in postfix!)
 	 * @return
 	 */
-	public String calculate(String[] expression) {
+	public static String calculate(String[] expression) {
 		
 		//Gets length of our String[]
 		int length = expression.length;
@@ -30,19 +30,19 @@ public class SymbolicMath {
 					operationStack.addFirst(add(operationStack.pop(), operationStack.pop()).toString());
 				}
 				//Etc.
-				else if(thisElement.equals("-")) {
+				if(thisElement.equals("-")) {
 					
 				}
-				else if(thisElement.equals("*")) {
+				if(thisElement.equals("*")) {
 					
 				}
-				else if(thisElement.equals("/")) {
+				if(thisElement.equals("/")) {
 					
 				}
-				else if(thisElement.equals("^")) {
+				if(thisElement.equals("^")) {
 					
 				}
-				else if(thisElement.equals("sqrt:")) {
+				if(thisElement.equals("sqrt:")) {
 					//REMEMBER: Only pops one number off.
 				}
 			}
@@ -73,7 +73,7 @@ public class SymbolicMath {
 	 * @param arg2
 	 * @return
 	 */
-	public Fraction add(String arg1, String arg2){
+	public static Fraction add(String arg1, String arg2){
 		Fraction f1 = new Fraction(arg1);
 		Fraction f2 = new Fraction(arg2);
 		return add(f1, f2);
@@ -101,7 +101,9 @@ public class SymbolicMath {
 	 * @param arg2
 	 * @return
 	 */
-	public Fraction add(Fraction arg1, Fraction arg2){
+	public static Fraction add(Fraction arg1, Fraction arg2){
+		
+		String result = null;
 		
 		//If both fractions are whole numbers... (adding is trivial :D)
 		if (Fraction.isWholeNumber(arg1) && Fraction.isWholeNumber(arg2)) {
@@ -115,13 +117,23 @@ public class SymbolicMath {
 				int int1 = Integer.parseInt(num1);
 				int int2 = Integer.parseInt(num2);
 				Integer int_return = int1 + int2;
-				return new Fraction(int_return.toString());
+				result = int_return.toString();
 			} else 
 			//Otherwise, we have irrationals.
 			{
+				//Creates new string to calculate.
+				String newExpression = "(" + num1 + ") + (" + num2 + ")";
 				
+				List<String> tokenizedExpression = Tokenizer.tokenizeExpression(newExpression);
+				String[] expression = new String[tokenizedExpression.size()];
+				tokenizedExpression.toArray(expression);
+				String[] postFixed = Postfix.InfixtoPostfix(expression);
+				
+				result = new Fraction(SymbolicMath.calculate(postFixed)).toString();
 			}
 		}
+		
+		return (new Fraction(result));
 	}
 	
 	/**
@@ -131,58 +143,23 @@ public class SymbolicMath {
 	 * @return
 	 */
 	public Fraction subtract(String arg1, String arg2){
-		//Create fraction variables to work with.
-		Fraction f1 = new Fraction(arg1);
-		Fraction f2 = multiply(new Fraction(arg2);
-		Fraction f_result = null;
 		
-		
-		
-		return f_result.toString();
 	}
 	
 	public Fraction multiply(String arg1, String arg2){
-		//Create fraction variables to work with.
-		Fraction f1 = new Fraction(arg1);
-		Fraction f2 = new Fraction(arg2);
-		Fraction f_result = null;
 		
-		
-		
-		return f_result.toString();
 	}
 	
 	public Fraction divide(String arg1, String arg2){
-		//Create fraction variables to work with.
-		Fraction f1 = new Fraction(arg1);
-		Fraction f2 = new Fraction(arg2);
-		Fraction f_result = null;
 		
-		
-		
-		return f_result.toString();
 	}
 	
 	public Fraction raise(String arg1, String arg2){
-		//Create fraction variables to work with.
-		Fraction f1 = new Fraction(arg1);
-		Fraction f2 = new Fraction(arg2);
-		Fraction f_result = null;
 		
-		
-		
-		return f_result.toString();
 	}
 	
 	public Fraction sqrt(String arg1, String arg2){
-		//Create fraction variables to work with.
-		Fraction f1 = new Fraction(arg1);
-		Fraction f2 = new Fraction(arg2);
-		Fraction f_result = null;
 		
-		
-		
-		return f_result.toString();
 	}
 	
 }

@@ -44,7 +44,7 @@ public class Irrational {
 		if (full3.length == 2){ //possible format x^e OR A^e
 			Exp = full3[1];
 			Const = null;
-			if (Math.isInteger(full3[0]) == true){ //format is A^e
+			if (SymbolicMath.isInteger(full3[0]) == true){ //format is A^e
 				Coeff = full3[0];
 				Symbol = null;
 				return;
@@ -53,7 +53,7 @@ public class Irrational {
 			Symbol = full3[0];
 			return;
 		}
-		if (Math.isInteger(full3[0]) == true){ //format is A
+		if (SymbolicMath.isInteger(full3[0]) == true){ //format is A
 			Coeff = full3[0];
 			Symbol = null;
 			Exp = null;
@@ -74,7 +74,39 @@ public class Irrational {
 		Exp = exp;
 	}
 	
-	//needs getters, setters, simplifier
+	/**
+	 * 
+	 * @return coefficient of irrational object.
+	 */
+	public String getCoeff() {
+		return this.Coeff;
+	}
+	
+	/**
+	 * 
+	 * @return constant of irrational object.
+	 */
+	public String getConst() {
+		return this.Const;
+	}
+	
+	/**
+	 * 
+	 * @return symbol (i.e. pi, e) of irrational object.
+	 */
+	public String getSymbol() {
+		return this.Symbol;
+	}
+	
+	/**
+	 * 
+	 * @return exponential of irrational object.
+	 */
+	public String getExp() {
+		return this.Exp;
+	}
+	
+	//needs simplifier
 	
 	public String toString(){
 		String toString;
@@ -111,23 +143,30 @@ public class Irrational {
 	//testing purposes only
 	public static void main(String[] args) {
 		Irrational a = new Irrational("3");
-		System.out.println(a.toString());
+		System.out.println(a.toString() + ", " + a.getCoeff() + ", " + a.getConst() + ", " + a.getSymbol() + ", " + a.getExp());
 		Irrational b = new Irrational("pi");
-		System.out.println(b.toString());
+		System.out.println(b.toString() + ", " + b.getCoeff() + ", " + b.getConst() + ", " + b.getSymbol() + ", " + b.getExp());
 		Irrational c = new Irrational("5*e");
-		System.out.println(c.toString());
+		System.out.println(c.toString() + ", " + c.getCoeff() + ", " + c.getConst() + ", " + c.getSymbol() + ", " + c.getExp());
+		
+		//The following expression does not work properly.
 		Irrational d = new Irrational("pi+10");
-		System.out.println(d.toString());
+		System.out.println(d.toString() + ", " + d.getCoeff() + ", " + d.getConst() + ", " + d.getSymbol() + ", " + d.getExp());
+		
 		Irrational e = new Irrational("5*pi+10");
-		System.out.println(e.toString());
+		System.out.println(e.toString() + ", " + e.getCoeff() + ", " + e.getConst() + ", " + e.getSymbol() + ", " + e.getExp());
 		Irrational f = new Irrational("pi^2");
-		System.out.println(f.toString());
+		System.out.println(f.toString() + ", " + f.getCoeff() + ", " + f.getConst() + ", " + f.getSymbol() + ", " + f.getExp());
 		Irrational g = new Irrational("5^2");
-		System.out.println(g.toString());
+		System.out.println(g.toString() + ", " + g.getCoeff() + ", " + g.getConst() + ", " + g.getSymbol() + ", " + g.getExp());
 		Irrational h = new Irrational("3*pi^2");
-		System.out.println(h.toString());
+		System.out.println(h.toString() + ", " + h.getCoeff() + ", " + h.getConst() + ", " + h.getSymbol() + ", " + h.getExp());
 		Irrational i = new Irrational("3*pi+5^2");
-		System.out.println(i.toString());
+		System.out.println(i.toString() + ", " + i.getCoeff() + ", " + i.getConst() + ", " + i.getSymbol() + ", " + i.getExp());
+		
+		//The following expression does not work properly.
+		Irrational j = new Irrational("3+pi");
+		System.out.println(j.toString() + ", " + j.getCoeff() + ", " + j.getConst() + ", " + j.getSymbol() + ", " + j.getExp());
 	}
 	
 }
