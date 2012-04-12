@@ -1,4 +1,4 @@
-//needs complex toString method
+
 public class Irrational {
 	private String Coeff; //A
 	private String Const; //B
@@ -23,7 +23,8 @@ public class Irrational {
 				Const = aHalf2[0];
 //				Exp = null;
 				return;
-			}	
+			}
+			
 		}
 		String full2[] = expression.split("\\*");
 		if (full2.length == 2){ //possible format A*x^e
@@ -123,24 +124,49 @@ public class Irrational {
 	}
 	
 	public String canFactor(){
-		String s;
+		String s = null;
+		if ((Const == null) && (Symbol == null) && (Exp == null))
+			return Coeff;
 		
-		if (Const == null){ //A*x can factor out A, A*x^e can factor out A^e
+		else if (Const == null){ //A*x can factor out A, A*x^e can factor out A^e
 			if (Exp == null){ //Factor out the A in A*x
 				s = Coeff;
 			}
 			else{ //Factor out A^e in A*x^e
-				String[] a = {Exp,Coeff,"^"};
+				String[] a = {Coeff,Exp,"^"};
 				s = SymbolicMath.calculate(a);
 			}
 		}
-		else if (Exp == null){
-			//figure if Coeff and Const have common multiple
-			//pick which is lower, Coeff or Const
-			//divide lower by 2, then start checking if it divides both evenly
-			//if yes, found factor, if no, decrement value and try again
-			//if nothing divides, return null
-			s = null;//remove later
+		else if (Exp == null){ //Checks if format A*x+B can factor out an integer
+			int multiple = 1;
+			int coeff = Integer.parseInt(Coeff);
+			int constant = Integer.parseInt(Const);
+			
+			if ((coeff%constant) == 0) //initial check to see if A/B is an integer, if so B is greatest factor
+				return Integer.toString(constant);
+			if ((constant%coeff) == 0) //initial check to see if B/A is an integer, if so A is greatest factor
+				return Integer.toString(coeff);
+				
+			if (coeff > constant){ // pick which is lower, Coeff or Const, and divide by two to start at highest possible factor
+				multiple = constant/2;
+				for(int i = multiple; i != 0; i--){
+					if ((coeff%i == 0) && (constant%i == 0)){ //if integer i divides both A and B without a remainder
+						if (i == 1)
+							return null; //if greatest common factor found is 1, it returns no common factor
+						return Integer.toString(i); //else greatest common factor found is returned
+					}
+				}
+			}
+			else {
+				multiple = coeff/2;
+				for(int i = multiple; i != 0; i--){
+					if ((coeff%i == 0) && (constant%i == 0)){ //if integer i divides both A and B without a remainder
+						if (i == 1)
+							return null; //if greatest common factor found is 1, it returns no common factor
+						return Integer.toString(i); //else greatest common factor found is returned
+					}
+				}
+			}
 		}
 		else {
 			s = null;
@@ -188,7 +214,7 @@ public class Irrational {
 		//System.out.println(b.toString());
 		//Irrational c = new Irrational("5*e");
 		//System.out.println(c.toString());
-		//Irrational d = new Irrational("pi+10");
+		Irrational j = new Irrational("pi+10");
 		//System.out.println(d.toString());
 		//Irrational e = new Irrational("5*pi+10");
 		//System.out.println(e.toString());
@@ -200,10 +226,10 @@ public class Irrational {
 		//System.out.println(h.toString());
 		//Irrational i = new Irrational("3*pi+5^2");
 		//System.out.println(i.toString());
-		Irrational orielly = new Irrational("5*e^2");
-		System.out.println(orielly.canFactor());
+		//Irrational orielly = new Irrational("pi+10");
+		//System.out.println(orielly.canFactor());
 		//The following expression does not work properly.
-		Irrational j = new Irrational("3+pi");
+//		Irrational j = new Irrational("3+pi");
 		System.out.println(j.toString() + ", " + j.getCoeff() + ", " + j.getConst() + ", " + j.getSymbol() + ", " + j.getExp());
 	}
 	
