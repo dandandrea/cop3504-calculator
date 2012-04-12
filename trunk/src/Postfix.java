@@ -30,8 +30,9 @@ public class Postfix {
 	 *            - String Array that is in infix.
 	 * @return String Array that is in postfix.
 	 */
-	public static String[] InfixtoPostfix(String[] infix) {
-
+	public static String[] InfixtoPostfix(String expression) {
+		String[] infix = new String[Tokenizer.tokenizeExpression(expression).size()];
+		Tokenizer.tokenizeExpression(expression).toArray(infix);
 		String[] nfix = NegativeParse(infix);
 		ExpressionCheck(nfix);
 		return convert(nfix);
