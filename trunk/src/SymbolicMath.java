@@ -30,19 +30,19 @@ public class SymbolicMath {
 					operationStack.addFirst(add(operationStack.pop(), operationStack.pop()).toString());
 				}
 				//Etc.
-				if(thisElement.equals("-")) {
+				else if(thisElement.equals("-")) {
 					
 				}
-				if(thisElement.equals("*")) {
+				else if(thisElement.equals("*")) {
 					
 				}
-				if(thisElement.equals("/")) {
+				else if(thisElement.equals("/")) {
 					
 				}
-				if(thisElement.equals("^")) {
+				else if(thisElement.equals("^")) {
 					
 				}
-				if(thisElement.equals("sqrt:")) {
+				else if(thisElement.equals("sqrt:")) {
 					//REMEMBER: Only pops one number off.
 				}
 			}
