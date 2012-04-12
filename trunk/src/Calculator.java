@@ -7,6 +7,7 @@ public class Calculator
 	private final int maxHistoryItem = 3;
 	private int currentHistoryItem;
 	private List<HistoryItem> history;
+	private String answer;
 	
 	public Calculator()
 	{
@@ -35,4 +36,24 @@ public class Calculator
 	{
 		currentHistoryItem = choiceNum;
 	}
+
+	public String calculate(String expression, Boolean approximate)
+	{
+		System.out.println("Answer is always 42.");
+		
+		String[] post = Postfix.InfixtoPostfix(expression);
+		
+		if(approximate == true)
+		{
+			answer = ApproximateMath.Approximate(post);
+			return answer;
+		}
+		else
+		{
+			answer = SymbolicMath.calculate(post);
+			return answer;
+			
+		}
+	}	
+	
 }
