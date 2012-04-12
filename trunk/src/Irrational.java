@@ -6,7 +6,7 @@ public class Irrational {
 	private String Exp; //e
 	
 	//Constructor handles strings of format A*x+B^e, or any variation
-	//Fractional exponents represented as .e, ie sqrt: would be e = .5
+	//Fractional exponents represented as .e, ie sqrt: would be e = .2
 	public Irrational (String expression){
 		String full[] = expression.split("\\+");
 		if (full.length == 2){ //possible format A*x+B^e
@@ -21,7 +21,7 @@ public class Irrational {
 					return;
 				}//if no ^ operator, format is A*x+B
 				Const = aHalf2[0];
-				Exp = null;
+//				Exp = null;
 				return;
 			}	
 		}
@@ -32,38 +32,38 @@ public class Irrational {
 			if (bHalf1.length == 2) { //format is A*x^e
 				Symbol = bHalf1[0];
 				Exp = bHalf1[1];
-				Const = null;
+//				Const = null;
 				return;
 			}
 			Symbol = full2[1];//format is A*x
-			Exp = null;
-			Const = null;
+//			Exp = null;
+//			Const = null;
 			return;
 		}
 		String full3[] = expression.split("\\^");
 		if (full3.length == 2){ //possible format x^e OR A^e
 			Exp = full3[1];
-			Const = null;
-			if (SymbolicMath.isInteger(full3[0]) == true){ //format is A^e
+//			Const = null;
+			if (Math.isInteger(full3[0]) == true){ //format is A^e
 				Coeff = full3[0];
-				Symbol = null;
+//				Symbol = null;
 				return;
 			}
-			Coeff = null; //format is x^e
+//			Coeff = null; //format is x^e
 			Symbol = full3[0];
 			return;
 		}
-		if (SymbolicMath.isInteger(full3[0]) == true){ //format is A
+		if (Math.isInteger(full3[0]) == true){ //format is A
 			Coeff = full3[0];
-			Symbol = null;
-			Exp = null;
-			Const = null;
+//			Symbol = null;
+//			Exp = null;
+//			Const = null;
 			return;
 		}
-		Coeff = null; //format is x
+//		Coeff = null; //format is x
 		Symbol = full3[0];
-		Exp = null;
-		Const = null;
+//		Exp = null;
+//		Const = null;
 		return;
 	}
 	
@@ -74,7 +74,7 @@ public class Irrational {
 		Exp = exp;
 	}
 	
-	/**
+		/**
 	 * 
 	 * @return coefficient of irrational object.
 	 */
@@ -106,7 +106,47 @@ public class Irrational {
 		return this.Exp;
 	}
 	
-	//needs simplifier
+	public void setCoeff(String s){
+		Coeff = s;
+	}
+	
+	public void setSymbol(String s){
+		Symbol = s;
+	}
+	
+	public void setConst(String s){
+		Const = s;
+	}
+	
+	public void setExp(String s){
+		Exp = s;
+	}
+	
+	public String canFactor(){
+		String s;
+		
+		if (Const == null){ //A*x can factor out A, A*x^e can factor out A^e
+			if (Exp == null){ //Factor out the A in A*x
+				s = Coeff;
+			}
+			else{ //Factor out A^e in A*x^e
+				String[] a = {Exp,Coeff,"^"};
+				s = SymbolicMath.calculate(a);
+			}
+		}
+		else if (Exp == null){
+			//figure if Coeff and Const have common multiple
+			//pick which is lower, Coeff or Const
+			//divide lower by 2, then start checking if it divides both evenly
+			//if yes, found factor, if no, decrement value and try again
+			//if nothing divides, return null
+			s = null;//remove later
+		}
+		else {
+			s = null;
+		}
+		return s;
+	}
 	
 	public String toString(){
 		String toString;
@@ -142,28 +182,26 @@ public class Irrational {
 	
 	//testing purposes only
 	public static void main(String[] args) {
-		Irrational a = new Irrational("3");
-		System.out.println(a.toString() + ", " + a.getCoeff() + ", " + a.getConst() + ", " + a.getSymbol() + ", " + a.getExp());
-		Irrational b = new Irrational("pi");
-		System.out.println(b.toString() + ", " + b.getCoeff() + ", " + b.getConst() + ", " + b.getSymbol() + ", " + b.getExp());
-		Irrational c = new Irrational("5*e");
-		System.out.println(c.toString() + ", " + c.getCoeff() + ", " + c.getConst() + ", " + c.getSymbol() + ", " + c.getExp());
-		
-		//The following expression does not work properly.
-		Irrational d = new Irrational("pi+10");
-		System.out.println(d.toString() + ", " + d.getCoeff() + ", " + d.getConst() + ", " + d.getSymbol() + ", " + d.getExp());
-		
-		Irrational e = new Irrational("5*pi+10");
-		System.out.println(e.toString() + ", " + e.getCoeff() + ", " + e.getConst() + ", " + e.getSymbol() + ", " + e.getExp());
-		Irrational f = new Irrational("pi^2");
-		System.out.println(f.toString() + ", " + f.getCoeff() + ", " + f.getConst() + ", " + f.getSymbol() + ", " + f.getExp());
-		Irrational g = new Irrational("5^2");
-		System.out.println(g.toString() + ", " + g.getCoeff() + ", " + g.getConst() + ", " + g.getSymbol() + ", " + g.getExp());
-		Irrational h = new Irrational("3*pi^2");
-		System.out.println(h.toString() + ", " + h.getCoeff() + ", " + h.getConst() + ", " + h.getSymbol() + ", " + h.getExp());
-		Irrational i = new Irrational("3*pi+5^2");
-		System.out.println(i.toString() + ", " + i.getCoeff() + ", " + i.getConst() + ", " + i.getSymbol() + ", " + i.getExp());
-		
+		//Irrational a = new Irrational("3");
+		//System.out.println(a.toString());
+		//Irrational b = new Irrational("pi");
+		//System.out.println(b.toString());
+		//Irrational c = new Irrational("5*e");
+		//System.out.println(c.toString());
+		//Irrational d = new Irrational("pi+10");
+		//System.out.println(d.toString());
+		//Irrational e = new Irrational("5*pi+10");
+		//System.out.println(e.toString());
+		//Irrational f = new Irrational("pi^2");
+		//System.out.println(f.toString());
+		//Irrational g = new Irrational("5^2");
+		//System.out.println(g.toString());
+		//Irrational h = new Irrational("3*pi^.2");
+		//System.out.println(h.toString());
+		//Irrational i = new Irrational("3*pi+5^2");
+		//System.out.println(i.toString());
+		Irrational orielly = new Irrational("5*e^2");
+		System.out.println(orielly.canFactor());
 		//The following expression does not work properly.
 		Irrational j = new Irrational("3+pi");
 		System.out.println(j.toString() + ", " + j.getCoeff() + ", " + j.getConst() + ", " + j.getSymbol() + ", " + j.getExp());
