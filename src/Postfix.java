@@ -5,15 +5,14 @@ public class Postfix {
 	// output queue for shunting-yard algorithm
 	private static ArrayList<String> postfix = new ArrayList<String>();
 	// stack used for shunting yard algorithm
-	private static Stack<String> stack = new Stack<String>();
+	private static LinkedList<String> stack = new LinkedList<String>();
 	// Associativity of operators
-	private static final int LEFT_ASSOC = 0, RIGHT_ASSOC = 1, UNIARY = 1,
-			BINARY = 0;
+	private static final int LEFT_ASSOC = 0, RIGHT_ASSOC = 1;
 	// Map to hold operator properties
 	private static final Map<String, int[]> OPERATORS = new HashMap<String, int[]>();
 	// contains the precedence and associativity of the operators.
 	static {
-		// Map<"token", []{precendence, associativity}>
+		// Map<"token", []{precedence, associativity}>
 		OPERATORS.put("+", new int[] { 0, LEFT_ASSOC });
 		OPERATORS.put("-", new int[] { 0, LEFT_ASSOC });
 		OPERATORS.put("*", new int[] { 5, LEFT_ASSOC });
@@ -32,8 +31,9 @@ public class Postfix {
 	 * @return String Array that is in postfix.
 	 */
 	public static String[] InfixtoPostfix(String[] infix) {
+
 		String[] nfix = NegativeParse(infix);
-	
+		ExpressionCheck(nfix);
 		return convert(nfix);
 	}
 
@@ -44,33 +44,127 @@ public class Postfix {
 	 * @return infix expression that has been processed.
 	 */
 	public static String[] NegativeParse(String[] infix) {
+		// ArrayList to hold the parsed expression
 		ArrayList<String> parseholder = new ArrayList<String>();
+		Boolean matchLeftParen = false;
+
+		// checks to see if a minus sign occurs in the expression, then
+		// determines whether if it is a minus or a negative sign.
 		for (int i = 0; i < infix.length; i++) {
 			if (isNumber(infix[i]) || isLeftParenthesis(infix[i])
 					|| isRightParenthesis(infix[i])) {
+
 				parseholder.add(infix[i]);
+				//matches parenthesis
+				if(matchLeftParen){
+					parseholder.add(")");
+					matchLeftParen = false;
+				}
+
 			} else if (isOperator(infix[i])) {
+
 				if (infix[i].equals("-")) {
+
 					if (i > 0) {
 						if (isOperator(infix[i - 1])
 								|| isLeftParenthesis(infix[i - 1])) {
+							
+							
+							parseholder.add("(");
 							parseholder.add("-1");
 							parseholder.add("*");
+							matchLeftParen = true;
+
 						} else {
 							parseholder.add(infix[i]);
 						}
+
 					} else {
+
+						parseholder.add("(");
 						parseholder.add("-1");
 						parseholder.add("*");
+						matchLeftParen = true;
+
 					}
 				} else {
 					parseholder.add(infix[i]);
+					//matches parenthesis
+					if(matchLeftParen){
+						parseholder.add(")");
+						matchLeftParen = false;
+					}
 				}
 			}
 		}
+
 		String[] NegativeParsed = new String[parseholder.size()];
 		parseholder.toArray(NegativeParsed);
 		return NegativeParsed;
+	}
+
+	/**
+	 * Determines whether the expression is mal-formed or not. must be performed
+	 * after the method NegativeParse().
+	 * 
+	 * @param expression
+	 */
+	private static void ExpressionCheck(String[] expression) {
+		//counters to make sure parenthesis are matching.
+		int rightParenMatch = 0; 
+		boolean leftParenMatch = true;
+	
+		for (int i = 0; i < expression.length; i++) {
+			//parenthesis matching.
+			if(isLeftParenthesis(expression[i])){
+				
+				leftParenMatch = false;
+				rightParenMatch++;
+			}
+			if(isRightParenthesis(expression[i])){
+				
+				leftParenMatch = true;
+				rightParenMatch--;
+			}
+			
+			if (i == 0) {
+				//first token of a well-formed expression must not be an operator.
+				if (isOperator(expression[0])) {
+					throw new IllegalStateException("Expression is mal-formed");
+				}
+				//first token cannot be a right parenthesis if expression is wel-formed.
+				if (isRightParenthesis(expression[0])){
+					
+					throw new IllegalStateException("Expression is mal-formed");
+				}
+			}
+			if (i > 0 && i < expression.length - 1) {
+				if (isOperator(expression[i])) {
+					// expression cannot have to operators adjacent to each
+					// other
+					if (isOperator(expression[i - 1])
+							|| isOperator(expression[i + 1])) {
+
+						throw new IllegalStateException(
+								"Expression is mal-formed");
+					}
+				}
+				//two numbers cannot be adjacent to each other in a wellformed expression.
+				if (isNumber((expression[i]))) {
+					if (isNumber(expression[i - 1])
+							|| isNumber(expression[i + 1])) {
+
+						throw new IllegalStateException(
+								"Expression is mal-formed");
+					}
+				}
+			}
+		}
+		//Every parenthesis must be matched.
+		if(!(leftParenMatch && rightParenMatch == 0)){
+			
+			throw new IllegalStateException("Parenthesis are not matched");
+		}
 	}
 
 	/**
@@ -109,14 +203,8 @@ public class Postfix {
 			} else if (isRightParenthesis(infix[i])) {
 				// exception: missing parenthesis
 				if (!stack.contains("(")) {
-					System.out.println("missing matching parenthesis");
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					System.exit(0);
+					//this shouldn't happen do to ExpressionCheck() method
+					throw new IllegalStateException("no matching parenthesis");
 				}
 				while (!stack.isEmpty() && !stack.peek().equals("(")) {
 					postfix.add(stack.pop());
@@ -135,6 +223,7 @@ public class Postfix {
 		return postfixA;
 	}
 
+	//checks whether the token is right parenthesis
 	private static boolean isRightParenthesis(String string) {
 		if (string.equals(")")) {
 			return true;
@@ -142,7 +231,7 @@ public class Postfix {
 			return false;
 		}
 	}
-
+	//checks whether the token is a left parenthesis.
 	private static boolean isLeftParenthesis(String string) {
 
 		if (string.equals("(")) {
@@ -151,7 +240,7 @@ public class Postfix {
 			return false;
 		}
 	}
-
+	//checks whether the token is an operator.
 	private static boolean isOperator(String string) {
 		if (string.equals("+") || string.equals("-") || string.equals("sqrt:")
 				|| string.equals("*") || string.equals("^")
@@ -190,7 +279,7 @@ public class Postfix {
 	 * @return Boolean value indicating whether the string is a number or not.
 	 */
 	private static boolean isNumber(String string) {
-		
+
 		Boolean number = true;
 		try {
 
