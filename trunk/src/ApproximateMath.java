@@ -23,11 +23,18 @@ public class ApproximateMath {
 		ArrayList<String> parsedexpression = new ArrayList<String>();
 		//changes all references of e and pi to their double values
 		for (int i = 0; i < expression.length; i++) {
+			
 			if (expression[i].equals("e")) {
-				parsedexpression.add(Double.toString(java.lang.Math.E));
+				
+				parsedexpression.add(Double.toString(Math.E));
+				
 			} else if (expression[i].equals("pi")) {
-				parsedexpression.add(Double.toString(java.lang.Math.PI));
+			
+				parsedexpression.add(Double.toString(Math.PI));
+				
+				
 			} else {
+				
 				parsedexpression.add(expression[i]);
 			}
 		}
@@ -54,7 +61,7 @@ public class ApproximateMath {
 				if (expression.get(i).equals("*")) {
 
 					stack.push(stack.pop() * stack.pop());
-					System.out.println(stack.peek());
+					
 
 				} else if (expression.get(i).equals("/")) {
 
@@ -63,7 +70,7 @@ public class ApproximateMath {
 					stack.push(a / b);
 
 				} else if (expression.get(i).equals("+")) {
-
+					
 					stack.push(stack.pop() + stack.pop());
 
 				} else if (expression.get(i).equals("-")) {
@@ -76,16 +83,17 @@ public class ApproximateMath {
 
 					b = stack.pop();
 					a = stack.pop();
-					stack.push(java.lang.Math.pow(a, b));
+					stack.push(Math.pow(a, b));
 
 				} else if (expression.get(i).equals("sqrt:")) {
 
-					stack.push(java.lang.Math.sqrt(stack.pop()));
+					stack.push(Math.sqrt(stack.pop()));
 				}
 			}
 		}
 
 		ans = stack.pop();
+		
 		return ans;
 	}
 
@@ -100,7 +108,7 @@ public class ApproximateMath {
 		Boolean number = true;
 		try {
 
-			Integer.parseInt(string);
+			Double.parseDouble(string);
 
 		} catch (Exception e) {
 			number = false;
