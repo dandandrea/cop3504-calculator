@@ -28,11 +28,11 @@ public class postfixdriver {
 //		System.out.print("]");	
 		
 		String[] pfix= Postfix.InfixtoPostfix(infix);
-		System.out.print("[");
-		for(int i = 0; i<pfix.length;i++){
-			System.out.print(pfix[i]+", ");
-		}
-		System.out.print("]");	
+//		System.out.print("[");
+//		for(int i = 0; i<pfix.length;i++){
+//			System.out.print(pfix[i]+", ");
+//		}
+//		System.out.print("]");	
 		
 		
 		System.out.println(ApproximateMath.Approximate(pfix));
