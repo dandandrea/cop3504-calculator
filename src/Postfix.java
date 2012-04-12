@@ -55,8 +55,8 @@ public class Postfix {
 					|| isRightParenthesis(infix[i])) {
 
 				parseholder.add(infix[i]);
-				//matches parenthesis
-				if(matchLeftParen){
+				// matches parenthesis
+				if (matchLeftParen) {
 					parseholder.add(")");
 					matchLeftParen = false;
 				}
@@ -68,8 +68,7 @@ public class Postfix {
 					if (i > 0) {
 						if (isOperator(infix[i - 1])
 								|| isLeftParenthesis(infix[i - 1])) {
-							
-							
+
 							parseholder.add("(");
 							parseholder.add("-1");
 							parseholder.add("*");
@@ -89,8 +88,8 @@ public class Postfix {
 					}
 				} else {
 					parseholder.add(infix[i]);
-					//matches parenthesis
-					if(matchLeftParen){
+					// matches parenthesis
+					if (matchLeftParen) {
 						parseholder.add(")");
 						matchLeftParen = false;
 					}
@@ -110,31 +109,32 @@ public class Postfix {
 	 * @param expression
 	 */
 	private static void ExpressionCheck(String[] expression) {
-		//counters to make sure parenthesis are matching.
-		int rightParenMatch = 0; 
+		// counters to make sure parenthesis are matching.
+		int rightParenMatch = 0;
 		boolean leftParenMatch = true;
-	
 		for (int i = 0; i < expression.length; i++) {
-			//parenthesis matching.
-			if(isLeftParenthesis(expression[i])){
-				
+			// parenthesis matching.
+			if (isLeftParenthesis(expression[i])) {
+
 				leftParenMatch = false;
 				rightParenMatch++;
 			}
-			if(isRightParenthesis(expression[i])){
-				
+			if (isRightParenthesis(expression[i])) {
+
 				leftParenMatch = true;
 				rightParenMatch--;
 			}
-			
+
 			if (i == 0) {
-				//first token of a well-formed expression must not be an operator.
+				// first token of a well-formed expression must not be an
+				// operator.
 				if (isOperator(expression[0])) {
 					throw new IllegalStateException("Expression is mal-formed");
 				}
-				//first token cannot be a right parenthesis if expression is wel-formed.
-				if (isRightParenthesis(expression[0])){
-					
+				// first token cannot be a right parenthesis if expression is
+				// wel-formed.
+				if (isRightParenthesis(expression[0])) {
+
 					throw new IllegalStateException("Expression is mal-formed");
 				}
 			}
@@ -149,7 +149,8 @@ public class Postfix {
 								"Expression is mal-formed");
 					}
 				}
-				//two numbers cannot be adjacent to each other in a wellformed expression.
+				// two numbers cannot be adjacent to each other in a wellformed
+				// expression.
 				if (isNumber((expression[i]))) {
 					if (isNumber(expression[i - 1])
 							|| isNumber(expression[i + 1])) {
@@ -159,10 +160,31 @@ public class Postfix {
 					}
 				}
 			}
+			//test for the last entry of the expression, if the expression has more than 1 token.
+			if (i == expression.length - 1 && expression.length > 1) {
+				if (isOperator(expression[i])) {
+					// expression cannot have to operators adjacent to each
+					// other
+					if (isOperator(expression[i - 1])) {
+
+						throw new IllegalStateException(
+								"Expression is mal-formed");
+					}
+				}
+				// two numbers cannot be adjacent to each other in a wellformed
+				// expression.
+				if (isNumber((expression[i]))) {
+					if (isNumber(expression[i - 1])) {
+
+						throw new IllegalStateException(
+								"Expression is mal-formed");
+					}
+				}
+			}
 		}
-		//Every parenthesis must be matched.
-		if(!(leftParenMatch && rightParenMatch == 0)){
-			
+		// Every parenthesis must be matched.
+		if (!(leftParenMatch && rightParenMatch == 0)) {
+
 			throw new IllegalStateException("Parenthesis are not matched");
 		}
 	}
@@ -203,7 +225,7 @@ public class Postfix {
 			} else if (isRightParenthesis(infix[i])) {
 				// exception: missing parenthesis
 				if (!stack.contains("(")) {
-					//this shouldn't happen do to ExpressionCheck() method
+					// this shouldn't happen do to ExpressionCheck() method
 					throw new IllegalStateException("no matching parenthesis");
 				}
 				while (!stack.isEmpty() && !stack.peek().equals("(")) {
@@ -223,7 +245,7 @@ public class Postfix {
 		return postfixA;
 	}
 
-	//checks whether the token is right parenthesis
+	// checks whether the token is right parenthesis
 	private static boolean isRightParenthesis(String string) {
 		if (string.equals(")")) {
 			return true;
@@ -231,7 +253,8 @@ public class Postfix {
 			return false;
 		}
 	}
-	//checks whether the token is a left parenthesis.
+
+	// checks whether the token is a left parenthesis.
 	private static boolean isLeftParenthesis(String string) {
 
 		if (string.equals("(")) {
@@ -240,7 +263,8 @@ public class Postfix {
 			return false;
 		}
 	}
-	//checks whether the token is an operator.
+
+	// checks whether the token is an operator.
 	private static boolean isOperator(String string) {
 		if (string.equals("+") || string.equals("-") || string.equals("sqrt:")
 				|| string.equals("*") || string.equals("^")
