@@ -12,6 +12,7 @@ public class ApproximateMath {
 		return Double.toString(EvaluteExpression(ApproximateParser(expression)));
 		
 	}
+	
 	/**
 	 * Converts String Array to String ArrayList, and converts e and pi to their double values.
 	 * @param expression
