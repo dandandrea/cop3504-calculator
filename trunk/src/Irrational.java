@@ -1,72 +1,53 @@
+import java.util.Arrays;
+import java.util.List;
+
 
 public class Irrational {
-	private String Coeff; //A
-	private String Const; //B
-	private String Symbol; //x
-	private String Exp; //e
+	// Worst case format => 3 * sqrt:2 * pi^3 * e^3, modeled as Num*Sqr*Pi^Pi_e*E^e
+	private String Num; //Integer value
+	private String Sqr; //Value x in sqrt:x
+	private String Pi_e; //Exponent of pi
+	private String E_e; //Exponent of e
+	
+//*********************everything below this point is bullshit****************************
 	
 	//Constructor handles strings of format A*x+B^e, or any variation
 	//Fractional exponents represented as .e, ie sqrt: would be e = .2
 	public Irrational (String expression){
-		String full[] = expression.split("\\+");
-		if (full.length == 2){ //possible format A*x+B^e
-			String aHalf1[] = full[0].split("\\*");
-			if(aHalf1.length == 2){ //possible format A*x+B^e
-				Coeff = aHalf1[0];
-				Symbol = aHalf1[1];
-				String aHalf2[] = full[1].split("\\^");
-				if(aHalf2.length == 2){ //format is A*x+B^e
-					Const = aHalf2[0];
-					Exp = aHalf2[1];
-					return;
-				}//if no ^ operator, format is A*x+B
-				Const = aHalf2[0];
-//				Exp = null;
-				return;
-			}
-			
-		}
-		String full2[] = expression.split("\\*");
-		if (full2.length == 2){ //possible format A*x^e
-			Coeff = full2[0];
-			String bHalf1[] = full2[1].split("\\^");
-			if (bHalf1.length == 2) { //format is A*x^e
-				Symbol = bHalf1[0];
-				Exp = bHalf1[1];
-//				Const = null;
-				return;
-			}
-			Symbol = full2[1];//format is A*x
-//			Exp = null;
-//			Const = null;
+		if (testForm1(expression) == true)
+			return;
+		else if (testForm2(expression) == true)
+			return;
+		else if (testForm3(expression) == true)
+			return;
+		else if (testForm4(expression) == true)
+			return;
+		else if (testForm5(expression) == true)
+			return;
+		else if (testForm6(expression) == true)
+			return;
+		else if (testForm7(expression) == true)
+			return;
+		else if (testForm8(expression) == true)
+			return;
+		else {
+			testForm9(expression);
 			return;
 		}
-		String full3[] = expression.split("\\^");
-		if (full3.length == 2){ //possible format x^e OR A^e
-			Exp = full3[1];
-//			Const = null;
-			if (Math.isInteger(full3[0]) == true){ //format is A^e
-				Coeff = full3[0];
-//				Symbol = null;
-				return;
-			}
-//			Coeff = null; //format is x^e
-			Symbol = full3[0];
-			return;
-		}
-		if (Math.isInteger(full3[0]) == true){ //format is A
-			Coeff = full3[0];
-//			Symbol = null;
-//			Exp = null;
-//			Const = null;
-			return;
-		}
-//		Coeff = null; //format is x
-		Symbol = full3[0];
-//		Exp = null;
-//		Const = null;
-		return;
 	}
+	
+	private boolean testForm2(String expression){ // Form: A*x (symbol, pi or e)
+		
+	}
+	
+	private boolean testForm1(String expression){ // Form: A (integer)
+		if (SymbolicMath.isInteger(expression) == true){
+			Coeff = expression;
+			return true;
+		}
+		return false;
+	}
+	
 	
 	public Irrational (String coeff, String constant, String symbol, String exp){
 		Coeff = coeff;
@@ -214,7 +195,7 @@ public class Irrational {
 		//System.out.println(b.toString());
 		//Irrational c = new Irrational("5*e");
 		//System.out.println(c.toString());
-		Irrational j = new Irrational("pi+10");
+		//Irrational j = new Irrational("pi+10");
 		//System.out.println(d.toString());
 		//Irrational e = new Irrational("5*pi+10");
 		//System.out.println(e.toString());
@@ -230,7 +211,10 @@ public class Irrational {
 		//System.out.println(orielly.canFactor());
 		//The following expression does not work properly.
 //		Irrational j = new Irrational("3+pi");
-		System.out.println(j.toString() + ", " + j.getCoeff() + ", " + j.getConst() + ", " + j.getSymbol() + ", " + j.getExp());
+		//System.out.println(j.toString() + ", " + j.getCoeff() + ", " + j.getConst() + ", " + j.getSymbol() + ", " + j.getExp());
+		List<String> test = Tokenizer.tokenizeExpression("pi+3");
+		System.out.println(test);
+		System.out.println(test.contains("+"));
 	}
 	
 }
