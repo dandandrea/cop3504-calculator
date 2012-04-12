@@ -5,7 +5,8 @@ public class UI
 	static Scanner sc = new Scanner(System.in);
 	static String input = "";
 	static String choice;
-	static String expression;
+//	static String expression;
+	static String choice2;
 	static Calculator calculator = new Calculator();
 
 	public static void main(String[] args) 
@@ -52,8 +53,28 @@ public class UI
 
 	private static void calculate()
 	{
-		System.out.println("The answer is always 42 (Calculate not yet implemented)");
-	}
+		System.out.println("Type in an expression.");
+		
+		System.out.println("Back: Go back to the main menu.");
+		System.out.println("Exit to exit.");
+		
+		choice2 = sc.nextLine();
+		
+			if(choice2.equalsIgnoreCase("exit"))
+			{
+				System.out.println("Bye!");
+				System.exit(0);
+			}
+			else if(choice2.equalsIgnoreCase("back"))
+			{
+				printMainMenu();
+			}
+			else
+			{
+				calculator.calculate(choice2);
+			}
+		}
+	
 	
 	private static void exit()
 	{
@@ -71,12 +92,20 @@ public class UI
 			System.out.println("1: See the previous History Items.");
 			System.out.println("2: Set History Item.");
 			System.out.println("Back: Go back to the main menu.");
+			System.out.println("Exit to exit.");
 			System.out.println();
 
 			choice = sc.nextLine();
-			if (choice.equalsIgnoreCase("back")) {
+			if (choice.equalsIgnoreCase("back")) 
+			{
 				break;
-			} else {
+			} 
+			else if(choice.equalsIgnoreCase("exit"))
+			{
+				System.out.println("Bye!");
+				System.exit(0);
+			}
+			else {
 				history(choice);
 			}
 		}
@@ -125,12 +154,21 @@ public class UI
 			System.out.println("1: See examples of good input.");
 			System.out.println("2: See supported operations and numbers.");
 			System.out.println("Back: Go back to the main menu.");
+			System.out.println("Exit to exit.");
 			System.out.println();
 
 			choice = sc.nextLine();
-			if (choice.equalsIgnoreCase("back")) {
+			if (choice.equalsIgnoreCase("back")) 
+			{
 				break;
-			} else {
+			} 
+			else if(choice.equalsIgnoreCase("exit"))
+			{
+				System.out.println("Bye!");
+				System.exit(0);
+			}
+			else 
+			{
 				help(choice);
 			}
 		}
