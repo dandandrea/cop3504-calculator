@@ -66,6 +66,12 @@ public class ApproximateMath {
 				} else if (expression.get(i).equals("/")) {
 
 					b = stack.pop();
+					//divide by zero error;
+					
+					if(b == 0){
+						throw new ArithmeticException("Division by zero error");
+					}
+					
 					a = stack.pop();
 					stack.push(a / b);
 
@@ -83,10 +89,20 @@ public class ApproximateMath {
 
 					b = stack.pop();
 					a = stack.pop();
+					//division by zero error
+					if(b<0&&a==0){
+						throw new ArithmeticException("can not divide by zero");
+					}
+					if(a<0 && (Math.pow(b, -1)>0 && Math.pow(b, -1)%2==0)){
+						
+						throw new ArithmeticException("calculator does not support imaginary numbers");
+					}
 					stack.push(Math.pow(a, b));
 
 				} else if (expression.get(i).equals("sqrt:")) {
-
+					if(stack.peek()<0){
+						throw new ArithmeticException("Can not take square roots of negative numbers");
+					}
 					stack.push(Math.sqrt(stack.pop()));
 				}
 			}
