@@ -10,20 +10,36 @@ public class UI
 	
 	public static void main(String[] args) 
 	{	
-		System.out.println("Welcome to the Calculator!");
+		System.out.println("Welcome to the Calculator! Choose from the following: ");
+		System.out.println("Exit");
+		System.out.println("Help");
+		System.out.println("History");
 		input = sc.nextLine();
-	/*	
+		
 		calculator.addHistoryItem(new HistoryItem("1+0", "235"));
 		calculator.addHistoryItem(new HistoryItem("1+1", "3"));
 		calculator.addHistoryItem(new HistoryItem("1+2", "123214"));
 		calculator.addHistoryItem(new HistoryItem("1+3", "54"));
-	*/	
+		
 		while(!(input.equalsIgnoreCase("Exit")))
 		{
 			if (input.equalsIgnoreCase("Help"))
 			{
 				Help();
-				System.out.println("Welcome to the Calculator!");
+				System.out.println("Welcome to the Calculator! Choose from the following: ");
+				System.out.println("Exit");
+				System.out.println("Help");
+				System.out.println("History");
+				System.out.println();
+				input = sc.nextLine();
+			}
+			else if(input.equalsIgnoreCase("History"))
+			{
+				History();
+				System.out.println("Welcome to the Calculator! Choose from the following: ");
+				System.out.println("Exit");
+				System.out.println("Help");
+				System.out.println("History");
 				System.out.println();
 				input = sc.nextLine();
 			}
@@ -41,38 +57,19 @@ public class UI
 		System.exit(0);
 	}
 	
-	private static void Help()
+	private static void History()
 	{
 		System.out.println("Choose from the following:");
-		System.out.println("1. See examples of good input.");
-		System.out.println("2. See supported operations and numbers.");
-		System.out.println("3. See the previous History Items.");
-		System.out.println("4. Set History Item.");
-		System.out.println();
+		System.out.println("1. See the previous History Items.");
+		System.out.println("2. Set History Item.");
 		
 		choice = sc.nextLine();
-		Help(choice);
-		
+		History(choice);
 	}
-
-	private static void Help(String choice)
+	
+	private static void History(String choice)
 	{
 		if(choice.equals("1"))
-		{
-			System.out.println("(1/4)*(1/8)");
-			System.out.println("3^(-1/2)");
-			System.out.println("1/(2^(1/2))");
-			System.out.println();
-		}
-		else if(choice.equals("2"))
-		{
-			System.out.println("The supported operations are: ");
-			System.out.println("Addition, Subtraction, Multiplication, Division, and Exponentiation.");
-			System.out.println("The supported numbers are: ");
-			System.out.println("Rational numbers and the irrational numbers pi and e.");
-			System.out.println();
-		}
-		else if(choice.equals("3"))
 		{
 			for(int i = 0; i < calculator.getHistory().size(); i++)
 			{
@@ -81,7 +78,7 @@ public class UI
 			System.out.println();
 			
 		}
-		else if(choice.equals("4"))
+		else if(choice.equals("2"))
 		{
 			System.out.println("Choose a history item.");
 			String choiceNum = sc.nextLine();
@@ -101,6 +98,37 @@ public class UI
 				
 				System.out.println();
 			}
+		}
+		else;
+	}
+	
+	private static void Help()
+	{
+		System.out.println("Choose from the following:");
+		System.out.println("1. See examples of good input.");
+		System.out.println("2. See supported operations and numbers.");
+		System.out.println();
+		
+		choice = sc.nextLine();
+		Help(choice);
+	}
+
+	private static void Help(String choice)
+	{
+		if(choice.equals("1"))
+		{
+			System.out.println("(1/4)*(1/8)");
+			System.out.println("3^(-1/2)");
+			System.out.println("1/(2^(1/2))");
+			System.out.println();
+		}
+		else if(choice.equals("2"))
+		{
+			System.out.println("The supported operations are: ");
+			System.out.println("Addition, Subtraction, Multiplication, Division, and Exponentiation.");
+			System.out.println("The supported numbers are: ");
+			System.out.println("Rational numbers and the irrational numbers pi and e.");
+			System.out.println();
 		}
 		else;
 	}
