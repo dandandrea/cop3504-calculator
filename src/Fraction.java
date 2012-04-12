@@ -3,18 +3,21 @@ public class Fraction {
 	private Irrational Numerator;
 	private Irrational Denominator;
 	
-	public Fraction (String expression){
+	public Fraction (String expression) {
+		
+		//Split the input string by the "/" character.
 		String split[] = expression.split("\\/");
-		if (split.length == 2){
+		
+		//If we have two elements in split[], that means we have a fraction...
+		if (split.length == 2) {
 			Numerator = new Irrational(split[0]);
 			Denominator = new Irrational(split[1]);
-		}
-		else {
+		} else 
+		//Otherwise, we simply have a whole number.
+		{
 			Numerator = new Irrational(expression);
 			Denominator = new Irrational("1");
-		}
-		
-		
+		} 
 		
 //		if (Math.isInteger(expression) == true){//case when only integer is entered
 //			Numerator = expression;

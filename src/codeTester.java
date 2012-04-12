@@ -16,8 +16,7 @@ public class codeTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		SymbolicMath test = new SymbolicMath();
-		System.out.println(test.calculate(new String[]{"2", "2", "+"}));
+		System.out.println(SymbolicMath.calculate(new String[]{"6", "3", "pi", "+", "5", "+", "+"}));
 	}
 
 }
