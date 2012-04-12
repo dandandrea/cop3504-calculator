@@ -129,6 +129,9 @@ public class SymbolicMath {
 				tokenizedExpression.toArray(expression);
 				String[] postFixed = Postfix.InfixtoPostfix(expression);
 				
+				//This part will undoubtedly require some sort of recursion. 
+				//We must evaluate down to simplest form, where we can create an Irrational object.
+				//But what is the base case?
 				result = new Fraction(SymbolicMath.calculate(postFixed)).toString();
 			}
 		}
