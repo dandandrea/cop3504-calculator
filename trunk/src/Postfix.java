@@ -81,7 +81,7 @@ public class Postfix {
 	 * @return String Array in postfix order.
 	 * @throws Exception
 	 */
-	public static String[] convert(String[] infix) {
+	private static String[] convert(String[] infix) {
 		for (int i = 0; i < infix.length; i++) {
 			// check to see if token is a number, adds the token to postfix
 			// array if it is.
@@ -190,6 +190,7 @@ public class Postfix {
 	 * @return Boolean value indicating whether the string is a number or not.
 	 */
 	private static boolean isNumber(String string) {
+		
 		Boolean number = true;
 		try {
 
