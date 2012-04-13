@@ -76,7 +76,10 @@ public class Tokenizer
 	 * of the expression - number or operator.
 	 */
 	public static List<String> tokenizeExpression(String expr)
-	{
+	{	
+		if(expr.contains(".")){
+			throw new IllegalStateException("Expression do not support decimal numbers");
+		}
 		List<String> tokens = new ArrayList<String>();
 		
 		// Sets up a pattern matcher for the provided expression.
