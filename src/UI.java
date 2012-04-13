@@ -2,9 +2,11 @@ import java.util.Scanner;
 
 public class UI 
 {
+	
 	static Scanner sc = new Scanner(System.in);
 	static String input = "";
 	static String choice;
+	static Boolean approx = false;
 //	static String expression;
 	static String choice2;
 	static Calculator calculator = new Calculator();
@@ -52,26 +54,38 @@ public class UI
 	}
 
 	private static void calculate()
-	{
+	{			
 		System.out.println("Type in an expression.");
-		
+		System.out.println("Exact: Enter exact answer mode (default)");
+		System.out.println("Approx: Enter approximate answer mode");
 		System.out.println("Back: Go back to the main menu.");
 		System.out.println("Exit to exit.");
 		
-		choice2 = sc.nextLine();
+		choice2 = " ";
 		
-			if(choice2.equalsIgnoreCase("exit"))
-			{
-				System.out.println("Bye!");
-				System.exit(0);
-			}
-			else if(choice2.equalsIgnoreCase("back"))
-			{
-				printMainMenu();
-			}
-			else
-			{
-				calculator.calculate(choice2);
+		while(!choice2.equalsIgnoreCase("back")){
+			choice2 = sc.nextLine();
+				if(choice2.equalsIgnoreCase("exit"))
+				{
+					System.out.println("Bye!");
+					System.exit(0);
+				}
+				else if(choice2.equalsIgnoreCase("back"))
+				{
+					printMainMenu();
+				}
+				else if(choice2.equalsIgnoreCase("exact"))
+				{
+					approx = false;
+				}
+				else if(choice2.equalsIgnoreCase("approx"))
+				{
+					approx = true;
+				}
+				else
+				{
+					System.out.println(calculator.calculate(choice2,approx));
+				}
 			}
 		}
 	
