@@ -121,7 +121,7 @@ public class ApproximateMath {
 	 *            number
 	 * @return False if the string input is not a number, true if it is.
 	 */
-	private static boolean isNumber(String string) {
+	public static boolean isNumber(String string) {
 		Boolean number = true;
 		try {
 
