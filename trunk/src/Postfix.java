@@ -31,11 +31,14 @@ public class Postfix {
 	 * @return String Array that is in postfix.
 	 */
 	public static String[] InfixtoPostfix(String expression) {
+		//pre-Postfix conversion processing
 		String[] infix = new String[Tokenizer.tokenizeExpression(expression).size()];
 		Tokenizer.tokenizeExpression(expression).toArray(infix);
 		String[] nfix = NegativeParse(infix);
 		ExpressionCheck(nfix);
+		//to Postfix
 		return convert(nfix);
+		
 	}
 
 	/**
@@ -279,7 +282,7 @@ public class Postfix {
 	// checks whether the operator is associative.
 	private static boolean isAssociative(String token, int type) {
 		if (!isOperator(token)) {
-			throw new IllegalArgumentException("Invalid token: " + token);
+			throw new IllegalStateException("Mal-formed expression");
 		}
 		if (OPERATORS.get(token)[1] == type) {
 			return true;
@@ -290,8 +293,7 @@ public class Postfix {
 	// compares the precedence of the operators for postfix conversion
 	private static final int comparePrecedence(String token1, String token2) {
 		if (!isOperator(token1) || !isOperator(token2)) {
-			throw new IllegalArgumentException("Invalied tokens: " + token1
-					+ " " + token2);
+			throw new IllegalStateException("Mal-formed expression");
 		}
 		return OPERATORS.get(token1)[0] - OPERATORS.get(token2)[0];
 	}
