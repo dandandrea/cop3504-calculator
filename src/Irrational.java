@@ -1,43 +1,80 @@
-import java.util.Arrays;
-import java.util.List;
-
 
 public class Irrational {
-	// Worst case format => 3 * sqrt:2 * pi^3 * e^3, modeled as Num*Sqr*Pi^Pi_e*E^e
+	// Worst case format => 3  * pi^3 * e^3 * sqrt:2, modeled as Num*pi^Pie*e^Ee*sqrt:Sqr, where Sqr can be integer or irrational (ie 2*pi)
 	private int Num; //Integer value
-	private String Sqr; //Value x in sqrt:x
 	private int Pie; //Exponent of pi
 	private int Ee; //Exponent of e
+	private String Sqr; //Value x in sqrt:x
 	
 	//Constructor to handle a string input
 	public Irrational (String expression){
-		if (testForm1(expression) == true){ // initial check if string is an integer
+		if (quickTest(expression) == true){ // initial check if string is just an integer
 			return;
 		}
-		String[] full = expression.split("\\*");
-		if (full.length > 3){ //3 instances of '*', must be worst case format
-			testForm2(full);
-			return;
-		}
+		String[] piTest = expression.split("pi"); // if pi is in expression piTest.length == 2
+		String[] eTest = expression.split("e"); // if e is in expression eTest.length == 2
+		String[] sqrtTest = expression.split("sqrt:"); // if sqrt: is in expression sqrtTest.length == 2
+		String[] numTest = expression.split("\\*"); // tests for multiple parts to expression
+
+		//check for integer at beginning of expression
+		expression = integerTest(expression, numTest); //assigns Num value, returns expression without Num in it (if it's there)
+		numTest = expression.split("\\*");
+		String[] ans = null;
+		ans = pi_eTest(expression, numTest, piTest, "pi"); //assigns Pie value, returns expression without pi in it (if it's there)
+		Pie = Integer.parseInt(ans[0]);
+		expression = ans[1];
+		numTest = expression.split("\\*");
+		ans = pi_eTest(expression, numTest, eTest, "e");
+		Ee = Integer.parseInt(ans[0]);
+		if (sqrtTest.length == 2)
+			Sqr = sqrtTest[1];
+		else
+			Sqr = "1";
 	}
 	
-	private void testForm2(String[] full){ // Form: Num*Sqr*Pi^Pi_e*E^e
-		Num = Integer.parseInt(full[0]);   // assumes for sqrt:x, x contains no '*' symbol
-		Sqr = full[1];
-		String[] split = full[2].split("\\^");
-		Pie = 1;
-		if (split.length == 2){
-			Pie = Integer.parseInt(split[1]);
+	private String[] pi_eTest(String expression, String[] numTest, String[] piTest, String test){
+		String[] ans = {"0",expression}; // ans[0] is the exponent, ans[1] is the expression
+		if ((piTest.length > 1) || ans[1].equals(test)){ //triggers if pi is in expression
+			piTest = numTest[0].split("\\^");
+			if (numTest.length == 1) { //triggers if pi or pi^x is only form in expression
+				if (ans[1].equals(test)){ //expression is pi
+					ans[0] = "1";
+				} else { //expression is pi^x
+					ans[0] = piTest[1];
+				}
+			} else { //catches the final possibility, forms pi*... or pi^x*...
+				if (numTest[0].equals(test)){ //expression is pi*...
+					ans[0] = "1";
+				} else { //expression is pi^x*...
+					ans[0] = piTest[1];
+				}
+				ans[1] = numTest[1];//rebuild expression
+				for (int i = 2; i < numTest.length; i++)
+					ans[1] = ans[1] + "*" + numTest[i];
+			}
+		} else {
+			ans[0] = "0"; // pi is not in expression
+			ans[1] = expression;
 		}
-		String[] split2 = full[3].split("\\^");
-		Ee = 1;
-		if (split2.length == 2){
-			Ee = Integer.parseInt(split2[1]);
-		}
-		//probably works...
+		return ans;
 	}
 	
-	private boolean testForm1(String expression){ // Form: Num (integer)
+	private String integerTest(String expression, String[] numTest){
+		if (numTest.length > 0){
+			try { // assumes the first division by '*' is an integer
+				Num = Integer.parseInt(numTest[0]); // if successful, need to alter expression
+				//expression altered to not include integer
+				expression = numTest[1];
+				for (int i = 2; i < numTest.length; i++)
+					expression = expression + "*" + numTest[i];
+			} catch (Exception e) {
+				Num = 1;
+			}
+		}
+		return expression;
+	}
+	
+	private boolean quickTest(String expression){ // Form: Num (integer)
 		if (SymbolicMath.isInteger(expression) == true){
 			Num = Integer.parseInt(expression);
 			Sqr = "1";
@@ -55,87 +92,69 @@ public class Irrational {
 		Pie = pie;
 		Ee = ee;
 	}
-	
-		/**
-	 * 
-	 * @return coefficient of irrational object.
-	 */
-	public String getCoeff() {
-		return this.Coeff;
+
+	public int getNum(){
+		return Num;
 	}
 	
-	/**
-	 * 
-	 * @return constant of irrational object.
-	 */
-	public String getConst() {
-		return this.Const;
+	public String getSqr(){
+		return Sqr;
 	}
 	
-	/**
-	 * 
-	 * @return symbol (i.e. pi, e) of irrational object.
-	 */
-	public String getSymbol() {
-		return this.Symbol;
+	public int getPie(){
+		return Pie;
 	}
 	
-	/**
-	 * 
-	 * @return exponential of irrational object.
-	 */
-	public String getExp() {
-		return this.Exp;
+	public int getEe(){
+		return Ee;
 	}
 	
-	public void setCoeff(String s){
-		Coeff = s;
-	}
-	
-	public void setSymbol(String s){
-		Symbol = s;
-	}
-	
-	public void setConst(String s){
-		Const = s;
-	}
-	
-	public void setExp(String s){
-		Exp = s;
-	}
-	
-	public String canFactor(){
-		
+	public String toString(){
+		String toString = "";
+		if (Num == 0)
+			return toString = "0";
+		if (((Num == 1) || (Num == -1)) && (Sqr == "1") && (Pie == 0) && (Ee == 0)){
+			if (Num == 1)
+				return toString = "1";
+			else
+				return toString = "-1";
+		}
+		if ((Num > 1) || (Num < -1))
+			toString = Integer.toString(Num);	
+		if (Pie != 0){
+			if ((Pie == 1) && (toString == ""))
+				toString = "pi";
+			else if ((Pie == 1) && (toString != "pi"))
+				toString = toString + "*" + "pi";
+			else if ((Pie > 1) && (toString == ""))
+				toString = "pi^" + Integer.toString(Pie);
+			else
+				toString = toString + "*" + "pi" + "^" + Integer.toString(Pie);
+		}
+		if (Ee != 0){
+			if ((Ee == 1) && (toString == ""))
+				toString = "e";
+			else if ((Ee == 1) && (toString != "e"))
+				toString = toString + "*" + "e";
+			else if ((Ee > 1) && (toString == ""))
+				toString = "e^" + Integer.toString(Ee);
+			else
+				toString = toString + "*" + "e" + "^" + Integer.toString(Ee);
+		}	
+		if (Sqr != "1"){
+			if (toString == "")
+				toString = "sqrt:" + Sqr;
+			else
+				toString = toString + "*" + "sqrt:" + Sqr;
+		}
+		return toString;
 	}
 	
 	//testing purposes only
 	public static void main(String[] args) {
-		//Irrational a = new Irrational("3");
-		//System.out.println(a.toString());
-		//Irrational b = new Irrational("pi");
-		//System.out.println(b.toString());
-		//Irrational c = new Irrational("5*e");
-		//System.out.println(c.toString());
-		//Irrational j = new Irrational("pi+10");
-		//System.out.println(d.toString());
-		//Irrational e = new Irrational("5*pi+10");
-		//System.out.println(e.toString());
-		//Irrational f = new Irrational("pi^2");
-		//System.out.println(f.toString());
-		//Irrational g = new Irrational("5^2");
-		//System.out.println(g.toString());
-		//Irrational h = new Irrational("3*pi^.2");
-		//System.out.println(h.toString());
-		//Irrational i = new Irrational("3*pi+5^2");
-		//System.out.println(i.toString());
-		//Irrational orielly = new Irrational("pi+10");
-		//System.out.println(orielly.canFactor());
-		//The following expression does not work properly.
-//		Irrational j = new Irrational("3+pi");
-		//System.out.println(j.toString() + ", " + j.getCoeff() + ", " + j.getConst() + ", " + j.getSymbol() + ", " + j.getExp());
-		List<String> test = Tokenizer.tokenizeExpression("pi+3");
-		System.out.println(test);
-		System.out.println(test.contains("+"));
+		Irrational b = new Irrational("5*pi^2");
+		System.out.println(b.getNum() + ", "  + b.getPie() + ", " + b.getEe() + ", " + b.getSqr() + " ******** " + b.toString());
+		
 	}
 	
 }
