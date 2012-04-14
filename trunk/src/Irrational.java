@@ -152,11 +152,19 @@ public class Irrational {
 	public void add(Irrational num2){
 		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr==this.getSqr()){
 			this.Num = num2.getNum()+ this.Num;
+		}else{
+			SymbolicMath.addIrrationalItem(num2);
+			SymbolicMath.addIrrationalItem(this);
 		}
 	}
 	public void subtract(Irrational num2){
 		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr==this.getSqr()){
 			this.Num = num2.getNum() - this.Num;
+		}else{
+			SymbolicMath.addIrrationalItem(this);
+			num2.setNum(-1*num2.getNum());
+			SymbolicMath.addIrrationalItem(num2);
+			
 		}
 	}
 	public void multiply(Irrational num2){
@@ -177,8 +185,12 @@ public class Irrational {
 			}
 		}
 	}
+	
 	public void sqrt(){
 		
+	}
+	public void setNum(int num){
+		this.Num = num;
 	}
 	
 	//testing purposes only
