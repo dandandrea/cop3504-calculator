@@ -6,7 +6,7 @@ public class Irrational {
 	private int Ee; //Exponent of e
 	private String Sqr; //Value x in sqrt:x
 	
-	//Constructor to handle a string input
+	//Constructor to handle a string input of any variation of format 'Num*pi^Pie*e^Ee*sqrt:Sqr'
 	public Irrational (String expression){
 		if (quickTest(expression) == true){ // initial check if string is just an integer
 			return;
@@ -184,7 +184,7 @@ public class Irrational {
 	//testing purposes only
 	public static void main(String[] args) {
 		Irrational b = new Irrational("5*pi^2*e^2*sqrt:2");
-		Irrational c = new Irrational("2*pi^0*e^0*sqrt:1");
+		Irrational c = new Irrational("2");
 		b.multiply(c);
 		System.out.println(b.getNum() + ", "  + b.getPie() + ", " + b.getEe() + ", " + b.getSqr() + " ******** " + b.toString());
 		
