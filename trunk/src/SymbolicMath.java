@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class SymbolicMath {
+	static ArrayList<Irrational> irrationalarray = new ArrayList<Irrational>();
 	
 	/**
 	 * High-level evaluation of a mathematical expression.
@@ -124,10 +125,8 @@ public class SymbolicMath {
 				//Creates new string to calculate.
 				String newExpression = "(" + num1 + ") + (" + num2 + ")";
 				
-				List<String> tokenizedExpression = Tokenizer.tokenizeExpression(newExpression);
-				String[] expression = new String[tokenizedExpression.size()];
-				tokenizedExpression.toArray(expression);
-				String[] postFixed = Postfix.InfixtoPostfix(expression);
+				
+				String[] postFixed = Postfix.InfixtoPostfix(newExpression);
 				
 				//This part will undoubtedly require some sort of recursion. 
 				//We must evaluate down to simplest form, where we can create an Irrational object.
@@ -146,23 +145,34 @@ public class SymbolicMath {
 	 * @return
 	 */
 	public Fraction subtract(String arg1, String arg2){
+		return null;
 		
 	}
 	
 	public Fraction multiply(String arg1, String arg2){
+		return null;
 		
 	}
 	
 	public Fraction divide(String arg1, String arg2){
+		return null;
 		
 	}
 	
 	public Fraction raise(String arg1, String arg2){
+		return null;
 		
 	}
 	
 	public Fraction sqrt(String arg1, String arg2){
+		return null;
 		
+	}
+	public static void addIrrationalItem(Irrational new_item){
+		irrationalarray.add(new_item);
+	}
+	public Irrational getIrrationalItem(int i){
+		return irrationalarray.get(i);
 	}
 	
 }
