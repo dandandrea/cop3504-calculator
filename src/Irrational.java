@@ -149,10 +149,43 @@ public class Irrational {
 		}
 		return toString;
 	}
+	public void add(Irrational num2){
+		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr==this.getSqr()){
+			this.Num = num2.getNum()+ this.Num;
+		}
+	}
+	public void subtract(Irrational num2){
+		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr==this.getSqr()){
+			this.Num = num2.getNum() - this.Num;
+		}
+	}
+	public void multiply(Irrational num2){
+		this.Num = num2.getNum()*this.Num;
+		this.Ee = this.Ee+num2.getEe();
+		this.Pie = this.Pie+num2.getPie();
+	//sqrt not avaialble yet
+	}
+	public void exponentiate(Irrational num2){
+		if(num2.getEe()==0 && num2.getSqr().equals("1")&&num2.getPie()==0){
+			this.Ee = num2.getNum()*this.Ee;
+			this.Pie = num2.getNum()*this.Pie;
+			this.Num = (int) Math.pow(this.Num, num2.getNum());
+			if(num2.Num%2==0){
+				//sqrt not available yet
+			}else{
+				System.out.println("^%$^&%");
+			}
+		}
+	}
+	public void sqrt(){
+		
+	}
 	
 	//testing purposes only
 	public static void main(String[] args) {
-		Irrational b = new Irrational("5*pi^2");
+		Irrational b = new Irrational("5*pi^2*e^2*sqrt:2");
+		Irrational c = new Irrational("2*pi^0*e^0*sqrt:1");
+		b.multiply(c);
 		System.out.println(b.getNum() + ", "  + b.getPie() + ", " + b.getEe() + ", " + b.getSqr() + " ******** " + b.toString());
 		
 	}
