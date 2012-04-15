@@ -11,12 +11,29 @@ public class codeTester {
 		return false;
 		
 	}
+	
+	public static String sqrtify(Integer input) {
+		for (int i = 1; i <= input; i++) {
+			int perfectRoot = (int) Math.pow(2.0, i);
+			if (input % perfectRoot == 0) {
+				return (perfectRoot + "*sqrt:" + (input/perfectRoot));
+			}
+		}
+		return ("sqrt:" + input);
+	}
 
 	/** For any and all code snippets anyone wishes to test.
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(SymbolicMath.calculate(new String[]{"6", "3", "pi", "+", "5", "+", "+"}));
+		System.out.println(SymbolicMath.add("1*pi", "-1*pi").toString());
+		System.out.println(SymbolicMath.subtract("1", "-3").toString());
+		
+		//This doesn't work.
+		System.out.println(SymbolicMath.multiply("-1", "pi").toString());
+		
+		System.out.println(SymbolicMath.divide("3/2", "1/4").toString());
+		//System.out.println(SymbolicMath.calculate(new String[]{"6", "3", "pi", "+", "5", "+", "+"}));
 	}
 
 }

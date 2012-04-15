@@ -1,10 +1,10 @@
-
 public class Irrational {
+	
 	// Worst case format => 3  * pi^3 * e^3 * sqrt:2, modeled as Num*pi^Pie*e^Ee*sqrt:Sqr, where Sqr can be integer or irrational (ie 2*pi)
-	private int Num; //Integer value
-	private int Pie; //Exponent of pi
-	private int Ee; //Exponent of e
-	private String Sqr; //Value x in sqrt:x
+	private int Num = 0; //Integer value
+	private int Pie = 0; //Exponent of pi
+	private int Ee = 0; //Exponent of e
+	private String Sqr = "1"; //Value x in sqrt:x
 	
 	//Constructor to handle a string input of any variation of format 'Num*pi^Pie*e^Ee*sqrt:Sqr'
 	public Irrational (String expression){
@@ -109,22 +109,6 @@ public class Irrational {
 		return Ee;
 	}
 	
-	public void setNum(int num){
-		Num = num;
-	}
-	
-	public void setPie(int pie){
-		Pie = pie;
-	}
-	
-	public void setEe(int ee){
-		Ee = ee;
-	}
-	
-	public void setSqr(String sqr){
-		Sqr = sqr;
-	}
-	
 	public String toString(){
 		String toString = "";
 		if (Num == 0)
@@ -166,15 +150,15 @@ public class Irrational {
 		return toString;
 	}
 	public void add(Irrational num2){
-		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr.equals(num2.getSqr())){
-			this.Num = num2.getNum()+ this.Num;
+		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr==this.getSqr()){
+			this.Num = num2.getNum() + this.Num;
 		}else{
 			SymbolicMath.addIrrationalItem(num2);
 			SymbolicMath.addIrrationalItem(this);
 		}
 	}
 	public void subtract(Irrational num2){
-		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr.equals(getSqr())){
+		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr==this.getSqr()){
 			this.Num = num2.getNum() - this.Num;
 		}else{
 			SymbolicMath.addIrrationalItem(this);
@@ -204,6 +188,9 @@ public class Irrational {
 	
 	public void sqrt(){
 		
+	}
+	public void setNum(int num){
+		this.Num = num;
 	}
 	
 	//testing purposes only
