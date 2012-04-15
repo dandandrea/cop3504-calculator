@@ -7,29 +7,37 @@ public class Calculator {
 	private List<HistoryItem> history;
 	private String answer;
 
-	public Calculator() {
+	//creates an ArrayList of history items
+	public Calculator() 
+	{
 		history = new ArrayList<HistoryItem>();
 	}
-
-	public void addHistoryItem(HistoryItem input) {
+	
+	//adds a HistoryItem to the list of history items
+	public void addHistoryItem(HistoryItem input) 
+	{
 
 		if (history.size() < maxHistoryItem)
-			history.add(input);
+			history.add(input); //adds the new expression and answer to the end of the list
 		else if (history.size() >= maxHistoryItem) {
 			history.remove(0);
-			history.add(input);
+			history.add(input); //removes the very first item and adds the new item to the end of the list
 		}
 	}
 
-	public List<HistoryItem> getHistory() {
+	//returns the list of history items
+	public List<HistoryItem> getHistory() 
+	{
 		return history;
 	}
 
+	//setter method for the current history item
 	public void setCurrentHistoryItem(int choiceNum) 
 	{
 		currentHistoryItem = choiceNum;
 	}
 
+	//calculates the approximate answer or the exact answer based on the given expression
 	public String calculate(String expression, Boolean approximate) {
 		String[] post;
 		// replace ans with actual answer
@@ -48,7 +56,7 @@ public class Calculator {
 			System.out.println("ans is not set; please visit History menu");
 		}
 
-		System.out.println("Answer is always 42.");
+		//System.out.println("Answer is always 42.");
 		// Postfix conversion
 		try {
 			post = Postfix.InfixtoPostfix(expression);
