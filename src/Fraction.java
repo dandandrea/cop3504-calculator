@@ -76,7 +76,7 @@ public class Fraction {
 		numer = 0;
 		denom=1;
 		double z = decimal;
-		while(Math.abs((decimal-(double)numer/(double)denom))<100||z==(int)z||z>1000){
+		while(Math.abs((decimal-((double)numer/(double)denom)))>.001||z!=(int)z||z<1000){
 			z= 1/(z-(int)z);
 			temp=denom;
 			denom = denom*(int)z +pastdenom;
@@ -109,7 +109,6 @@ public class Fraction {
 			return false;
 		}
 	}
-	
 	//We should probably put this in another class.
 	/**
 	 * Returns true if the denominator is equal to (exactly) 1.
