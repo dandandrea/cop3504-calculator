@@ -27,12 +27,10 @@ public class codeTester {
 	 */
 	public static void main(String[] args) {
 		System.out.println(SymbolicMath.add("3/8", "3/8").toString());
-		System.out.println(SymbolicMath.subtract("1", "-3").toString());
-		
-		//This doesn't work.
-		System.out.println(SymbolicMath.multiply("-1", "pi").toString());
-		
+		System.out.println(SymbolicMath.subtract("4", "-3").toString());
+		System.out.println(SymbolicMath.multiply("-4", "pi").toString());
 		System.out.println(SymbolicMath.divide("3/2", "1/4").toString());
+		
 		//System.out.println(SymbolicMath.calculate(new String[]{"6", "3", "pi", "+", "5", "+", "+"}));
 	}
 

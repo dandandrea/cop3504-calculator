@@ -240,12 +240,30 @@ public class SymbolicMath {
 	}
 	
 	public Fraction raise(String arg1, String arg2){
-		return null;
-		
+		Fraction f1 = new Fraction(arg1);
+		Fraction f2 = new Fraction(arg2);
+		if(f2.isRational()&&(f2.getDenominator().getNum()==1)){
+			Irrational exp = new Irrational(Integer.toString(f2.getNumerator().getNum()));
+			f1.getNumerator().exponentiate(exp);
+			f1.getDenominator().exponentiate(exp);
+			return f1;
+		}else if(f2.isRational()&&(f2.getDenominator().getNum()==2)){
+			Irrational exp = new Irrational(Integer.toString(f2.getNumerator().getNum()));
+			f1.getNumerator().exponentiate(exp);
+			f1.getDenominator().exponentiate(exp);
+			f1.getNumerator().sqrt();
+			f1.getDenominator().sqrt();
+			return f1;
+		}else{
+			throw new IllegalArgumentException("This exponentiation type is not supported; can only be done with rational numbers that are multiples of 1/2");
+		}
 	}
 	
 	public Fraction sqrt(String arg1, String arg2){
-		return null;
+		Fraction f1 = new Fraction(arg1);
+		f1.getNumerator().sqrt();
+		f1.getDenominator().sqrt();
+		return f1;
 		
 	}
 	public static void addIrrationalItem(Irrational new_item){

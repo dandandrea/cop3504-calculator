@@ -75,7 +75,7 @@ public class Irrational {
 	}
 	
 	private boolean quickTest(String expression){ // Form: Num (integer)
-		if (SymbolicMath.isInteger(expression) == true){
+		if (SymbolicMath.isInteger(expression)){
 			Num = Integer.parseInt(expression);
 			Sqr = "1";
 			Pie = 0;
@@ -119,11 +119,14 @@ public class Irrational {
 			else
 				return toString = "-1";
 		}
+		if ((Num == -1))
+			toString = "-";
 		if ((Num > 1) || (Num < -1))
-			toString = Integer.toString(Num);	
+			toString = toString + Integer.toString(Num);	
+		
 		if (Pie != 0){
-			if ((Pie == 1) && (toString == ""))
-				toString = "pi";
+			if ((Pie == 1) && (toString == ""||toString == "-"))
+				toString = toString + "pi";
 			else if ((Pie == 1) && (toString != "pi"))
 				toString = toString + "*" + "pi";
 			else if ((Pie > 1) && (toString == ""))
@@ -178,14 +181,34 @@ public class Irrational {
 			this.Ee = num2.getNum()*this.Ee;
 			this.Pie = num2.getNum()*this.Pie;
 			this.Num = (int) Math.pow(this.Num, num2.getNum());
-			if(num2.Num%2==0){
-				//sqrt not available yet
+			if(num2.Num%2==0&&!this.Sqr.equals("1")){
+				Irrational sqred = new Irrational(this.Sqr);
+				
+				sqred.setEe((int) ((double)num2.getNum()*.5)*sqred.getEe());
+				sqred.setPie((int) ((double)num2.getNum()*.5)*sqred.getPie());
+				sqred.setNum((int) Math.pow(sqred.getNum(), (double) num2.getNum()/2));
+				
+				this.Ee = sqred.getEe()+this.Ee;
+				this.Pie = sqred.getPie()+this.Pie;
+				this.Num = this.Num*sqred.Num;
+				this.Sqr="1";
+				
 			}else{
-				System.out.println("^%$^&%");
+				
 			}
 		}
 	}
 	
+	private void setPie(int pow) {
+		this.Pie = pow;
+		
+	}
+
+	private void setEe(int i) {
+		this.Ee = i;
+		
+	}
+
 	public void sqrt(){
 		
 	}
@@ -195,9 +218,9 @@ public class Irrational {
 	
 	//testing purposes only
 	public static void main(String[] args) {
-		Irrational b = new Irrational("5*pi^2*e^2*sqrt:2");
-		Irrational c = new Irrational("2");
-		b.multiply(c);
+		Irrational b = new Irrational("pi*sqrt:e");
+		Irrational c = new Irrational("4");
+		b.exponentiate(c);
 		System.out.println(b.getNum() + ", "  + b.getPie() + ", " + b.getEe() + ", " + b.getSqr() + " ******** " + b.toString());
 		
 	}
