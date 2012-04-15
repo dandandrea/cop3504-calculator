@@ -150,7 +150,7 @@ public class Irrational {
 		return toString;
 	}
 	public void add(Irrational num2){
-		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr==this.getSqr()){
+		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr.equals(num2.getSqr())){
 			this.Num = num2.getNum()+ this.Num;
 		}else{
 			SymbolicMath.addIrrationalItem(num2);
@@ -158,7 +158,7 @@ public class Irrational {
 		}
 	}
 	public void subtract(Irrational num2){
-		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr==this.getSqr()){
+		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr.equals(getSqr())){
 			this.Num = num2.getNum() - this.Num;
 		}else{
 			SymbolicMath.addIrrationalItem(this);
