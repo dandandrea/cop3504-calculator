@@ -110,6 +110,7 @@ public class Fraction {
 		}
 	}
 	
+	//We should probably put this in another class.
 	/**
 	 * Returns true if the denominator is equal to (exactly) 1.
 	 * @param frac
