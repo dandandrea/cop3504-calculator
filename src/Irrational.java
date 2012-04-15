@@ -109,6 +109,22 @@ public class Irrational {
 		return Ee;
 	}
 	
+	public void setNum(int num){
+		Num = num;
+	}
+	
+	public void setPie(int pie){
+		Pie = pie;
+	}
+	
+	public void setEe(int ee){
+		Ee = ee;
+	}
+	
+	public void setSqr(String sqr){
+		Sqr = sqr;
+	}
+	
 	public String toString(){
 		String toString = "";
 		if (Num == 0)
@@ -188,9 +204,6 @@ public class Irrational {
 	
 	public void sqrt(){
 		
-	}
-	public void setNum(int num){
-		this.Num = num;
 	}
 	
 	//testing purposes only
