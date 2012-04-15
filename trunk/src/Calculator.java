@@ -25,7 +25,8 @@ public class Calculator {
 		return history;
 	}
 
-	public void setCurrentHistoryItem(int choiceNum) {
+	public void setCurrentHistoryItem(int choiceNum) 
+	{
 		currentHistoryItem = choiceNum;
 	}
 
@@ -59,7 +60,8 @@ public class Calculator {
 		if (approximate) {
 			try {
 				answer = ApproximateMath.Approximate(post);
-				addHistoryItem(new HistoryItem(expression, answer));
+				addHistoryItem(new HistoryItem(expression, answer)); //adds the expression and the corresponding answer to the list of history item
+				setCurrentHistoryItem(history.size()-1); //sets the expression and the corresponding answer to the current history item.
 				return answer;
 
 			} catch (Exception e) {
@@ -67,8 +69,11 @@ public class Calculator {
 			}
 		}
 		// Exact Calculation
-		else {
+		else 
+		{
 			answer = SymbolicMath.calculate(post);
+			addHistoryItem(new HistoryItem(expression, answer)); //adds the expression and the corresponding answer to the list of history item
+			setCurrentHistoryItem(history.size()-1); //sets the expression and the corresponding answer to the current history item.
 			return answer;
 
 		}
