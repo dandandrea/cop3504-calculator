@@ -12,12 +12,6 @@ public class UI
 
 	public static void main(String[] args) 
 	{	
-		// For now we'll simply load some dummy data for the history
-		calculator.addHistoryItem(new HistoryItem("1+0", "235"));
-		calculator.addHistoryItem(new HistoryItem("1+1", "3"));
-		calculator.addHistoryItem(new HistoryItem("1+2", "123214"));
-		calculator.addHistoryItem(new HistoryItem("1+3", "54"));
-
 		// Display the welcome banner
 		System.out.println("Welcome to the Calculator!");
 		printMainMenu();
@@ -152,7 +146,8 @@ public class UI
 			{
 				System.out.println("There is no history item.");
 			}
-			
+			else{
+				
 			System.out.println("Pleae enter a history item number:");
 			String choiceNum = sc.nextLine();
 			try {
@@ -167,6 +162,7 @@ public class UI
 			}
 			catch (NumberFormatException e) {
 				System.out.println("Please enter a valid number");
+			}
 			}
 		}
 		else
