@@ -22,7 +22,8 @@ public class UI
 		System.out.println("Welcome to the Calculator!");
 		printMainMenu();
 		
-		//calls different methods for the different cases calculate, help, history, exit, or back, and printing the main menu again after going through each method.
+		//calls different methods for the different cases calculate, help, history, exit, 
+		//or back, and printing the main menu again after going through each method.
 		while (input != null && input.equalsIgnoreCase("Exit") == false && input.equalsIgnoreCase("Back") == false) {
 			input = sc.nextLine();
 
@@ -53,7 +54,8 @@ public class UI
 		}
 	}
 
-	//calculates a given expression in exact or approximate answer mode, go back to the main menu, or exit the calculator.
+	//calculates a given expression in exact or approximate answer mode, go back to the main menu, 
+	///or exit the calculator
 	private static void calculate()
 	{			
 		System.out.println("Type in an expression.");
@@ -97,7 +99,8 @@ public class UI
 		System.exit(0);
 	}
 	
-	
+	//go back to main menu, exit the calculator, or calls the history method to 
+	//show previous history items or set the current history item
 	private static void history()
 	{
 		choice = "";
@@ -127,6 +130,8 @@ public class UI
 		}
 	}
 	
+	//based on the user's choice, we will show the previous history items or 
+	//set the current history item based on the user's choice
 	private static void history(String choice)
 	{
 		if(choice.equals("1"))
@@ -170,6 +175,7 @@ public class UI
 		}
 	}
 	
+	//calls the help method, back to the main menu, or exit the calculator
 	private static void help()
 	{
 		choice = "";
@@ -200,6 +206,7 @@ public class UI
 		}
 	}
 
+	//based on the user's choice, we show examples of good inputs and operations and numbers we support
 	private static void help(String choice)
 	{
 		if(choice.equals("1"))
@@ -221,6 +228,7 @@ public class UI
 		}
 	}
 
+	//prints the main menu
 	private static void printMainMenu() {
 		System.out.println();
 		System.out.println("*** Main menu ***");
