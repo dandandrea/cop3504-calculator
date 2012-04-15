@@ -60,6 +60,36 @@ public class Fraction {
 	}
 	
 	private void simplify(){
+		if(isInteger(this.Numerator.toString())&&isInteger(this.Denominator.toString())){
+			EulerSimplify();
+		}
+	}
+	private void EulerSimplify(){
+		int numer, denom,temp, pastdenom=0;
+		Boolean neg = false;
+		numer = Integer.parseInt(this.Numerator.toString());
+		denom = Integer.parseInt(this.Denominator.toString());
+		if((numer<0||denom<0)&&!(denom<0&&numer<0)){
+			neg = true;
+		}
+		Double decimal = (double)numer/(double)denom;
+		numer = 0;
+		denom=1;
+		double z = decimal;
+		while(Math.abs((decimal-(double)numer/(double)denom))<100||z==(int)z||z>1000){
+			z= 1/(z-(int)z);
+			temp=denom;
+			denom = denom*(int)z +pastdenom;
+			pastdenom = temp;
+			numer = (int) Math.ceil(decimal*denom);
+			
+		}
+		if(neg){
+			numer= -1*numer;
+		}
+		
+		this.Numerator.setNum(numer);
+		this.Denominator.setNum(denom);
 		
 	}
 	
@@ -69,6 +99,14 @@ public class Fraction {
 		}
 		else {
 			return (Numerator.toString() + "/" + Denominator.toString());
+		}
+	}
+	private boolean isInteger(String string){
+		try{
+			Integer.parseInt(string);
+			return true;
+		}catch(Exception e){
+			return false;
 		}
 	}
 	
