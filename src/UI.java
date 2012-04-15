@@ -7,7 +7,6 @@ public class UI
 	static String input = "";
 	static String choice;
 	static Boolean approx = false;
-//	static String expression;
 	static String choice2;
 	static Calculator calculator = new Calculator();
 
@@ -129,6 +128,11 @@ public class UI
 	{
 		if(choice.equals("1"))
 		{
+			if(calculator.getHistory().size() < 1)
+			{
+				System.out.println("There is no history item.");
+			}
+			
 			for(int i = 0; i < calculator.getHistory().size(); i++)
 			{
 				System.out.println((i+1) + ". " + calculator.getHistory().get(i).getExpression() + "=" + calculator.getHistory().get(i).getAnswer());
@@ -136,6 +140,11 @@ public class UI
 		}
 		else if(choice.equals("2"))
 		{
+			if(calculator.getHistory().size() < 1)
+			{
+				System.out.println("There is no history item.");
+			}
+			
 			System.out.println("Pleae enter a history item number:");
 			String choiceNum = sc.nextLine();
 			try {
