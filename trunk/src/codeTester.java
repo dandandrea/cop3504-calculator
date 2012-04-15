@@ -26,7 +26,7 @@ public class codeTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(SymbolicMath.add("1*pi", "-1*pi").toString());
+		System.out.println(SymbolicMath.add("3/8", "3/8").toString());
 		System.out.println(SymbolicMath.subtract("1", "-3").toString());
 		
 		//This doesn't work.
