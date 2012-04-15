@@ -21,7 +21,8 @@ public class UI
 		// Display the welcome banner
 		System.out.println("Welcome to the Calculator!");
 		printMainMenu();
-
+		
+		//calls different methods for the different cases calculate, help, history, exit, or back, and printing the main menu again after going through each method.
 		while (input != null && input.equalsIgnoreCase("Exit") == false && input.equalsIgnoreCase("Back") == false) {
 			input = sc.nextLine();
 
@@ -52,6 +53,7 @@ public class UI
 		}
 	}
 
+	//calculates a given expression in exact or approximate answer mode, go back to the main menu, or exit the calculator.
 	private static void calculate()
 	{			
 		System.out.println("Type in an expression.");
@@ -88,12 +90,13 @@ public class UI
 			}
 		}
 	
-	
+	//exits the calculator
 	private static void exit()
 	{
 		System.out.println("Bye!");
 		System.exit(0);
 	}
+	
 	
 	private static void history()
 	{
