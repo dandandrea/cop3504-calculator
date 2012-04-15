@@ -2,7 +2,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Calculator {
-	private final int maxHistoryItem = 3;
+	private final int maxHistoryItem = 10;
 	private int currentHistoryItem;
 	private List<HistoryItem> history;
 	private String answer;
