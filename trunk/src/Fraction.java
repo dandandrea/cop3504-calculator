@@ -104,6 +104,13 @@ public class Fraction {
 		this.Denominator.setNum(denom);
 		
 	}
+	public Boolean isRational(){
+		if((this.Denominator.getEe()==0)&&(this.Denominator.getPie()==0)&&(this.Numerator.getEe()==0)&&(this.Numerator.getPie()==0)&&(this.Numerator.getSqr().equals("1"))&&(this.Denominator.getSqr().equals("1"))){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	
 	public String toString(){
 		this.simplify();
