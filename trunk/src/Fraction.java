@@ -61,10 +61,15 @@ public class Fraction {
 	
 	private void simplify(){
 		if(isInteger(this.Numerator.toString())&&isInteger(this.Denominator.toString())){
-			EulerSimplify();
+			if(this.Denominator.getNum()!=1){
+				
+				EulerSimplify();
+				
+			}
 		}
 	}
 	private void EulerSimplify(){
+		
 		int numer, denom,temp, pastdenom=0;
 		Boolean neg = false;
 		numer = Integer.parseInt(this.Numerator.toString());
@@ -76,14 +81,21 @@ public class Fraction {
 		numer = 0;
 		denom=1;
 		double z = decimal;
-		while(Math.abs((decimal-((double)numer/(double)denom)))>.001||z!=(int)z||z<1000){
+		int i = 0;
+		
+		do{
+			if (Math.abs(z -(int) z) < 0.0001) {
+				
+				numer = ((int) Math.ceil(decimal*denom));
+				break;
+			}
 			z= 1/(z-(int)z);
 			temp=denom;
 			denom = denom*(int)z +pastdenom;
 			pastdenom = temp;
 			numer = (int) Math.ceil(decimal*denom);
-			
-		}
+			i++;
+		} while(Math.abs((decimal-((double)numer/(double)denom)))>.001&&z<100&&i<20);
 		if(neg){
 			numer= -1*numer;
 		}
@@ -94,6 +106,7 @@ public class Fraction {
 	}
 	
 	public String toString(){
+		this.simplify();
 		if (isWholeNumber(this)){
 			return Numerator.toString();
 		}
