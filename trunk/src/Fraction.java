@@ -45,8 +45,18 @@ public class Fraction {
 		this.simplify();
 	}
 	
+	public void setNumerator(Irrational val){
+		Numerator = val;
+		this.simplify();
+	}
+	
 	public void setDenominator(String val){
 		Denominator = new Irrational(val);
+		this.simplify();
+	}
+	
+	public void setDenominator(Irrational val){
+		Denominator = val;
 		this.simplify();
 	}
 	
@@ -54,7 +64,6 @@ public class Fraction {
 		return Numerator;
 	}
 	
-	//eclipse said to make this 'visible', removed 'public' from method? potential for errors?
 	public Irrational getDenominator(){
 		return Denominator;
 	}
@@ -114,7 +123,7 @@ public class Fraction {
 	
 	public String toString(){
 		this.simplify();
-		if (isWholeNumber(this)){
+		if (isWholeExpression(this)){
 			return Numerator.toString();
 		}
 		else {
@@ -135,8 +144,7 @@ public class Fraction {
 	 * @param frac
 	 * @return
 	 */
-	public static boolean isWholeNumber(Fraction frac) {
-		return (frac.getDenominator().toString() == "1");
+	public static boolean isWholeExpression(Fraction frac) { 
+		return frac.getDenominator().toString().equals("1");
 	}
-	
 }
