@@ -60,6 +60,10 @@ public class Calculator {
 		// Postfix conversion
 		try {
 			post = Postfix.InfixtoPostfix(expression);
+//			System.out.print("postfix: "+post[0]); //for troubleshooting purposes
+//			for(int i = 1; i < post.length; i++)
+//				System.out.print(", "+ post[i]);
+//			System.out.println(); //remove for final
 		} catch (Exception e) {
 			return e.getMessage();
 		}
