@@ -194,7 +194,11 @@ public class Irrational {
 				this.Sqr="1";
 				
 			}else{
-				
+				Irrational sqred = new Irrational(this.Sqr);
+				sqred.setEe(num2.getNum()*sqred.getEe());
+				sqred.setPie(num2.getNum()*sqred.getPie());
+				sqred.setNum((int) Math.pow(sqred.getNum(),  num2.getNum()));
+				this.Sqr = sqred.toString();
 			}
 		}
 	}
@@ -219,7 +223,7 @@ public class Irrational {
 	//testing purposes only
 	public static void main(String[] args) {
 		Irrational b = new Irrational("pi*sqrt:e");
-		Irrational c = new Irrational("4");
+		Irrational c = new Irrational("3");
 		b.exponentiate(c);
 		System.out.println(b.getNum() + ", "  + b.getPie() + ", " + b.getEe() + ", " + b.getSqr() + " ******** " + b.toString());
 		
