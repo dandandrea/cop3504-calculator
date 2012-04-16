@@ -132,14 +132,14 @@ public class Postfix {
 			if (i == 0) {
 				// first token of a well-formed expression must not be an
 				// operator.
-				if (isOperator(expression[0])) {
-					throw new IllegalStateException("Expression is mal-formed");
+				if (beginOperator(expression[0])) {
+					throw new IllegalStateException("Expression is mal-formed: can't begin with "+expression[0]);
 				}
 				// first token cannot be a right parenthesis if expression is
 				// wel-formed.
 				if (isRightParenthesis(expression[0])) {
 
-					throw new IllegalStateException("Expression is mal-formed");
+					throw new IllegalStateException("Expression is mal-formed: can't begin with "+expression[0]);
 				}
 			}
 			if (i > 0 && i < expression.length - 1) {
@@ -267,6 +267,8 @@ public class Postfix {
 			return false;
 		}
 	}
+	
+	
 
 	// checks whether the token is an operator.
 	private static boolean isOperator(String string) {
@@ -278,7 +280,17 @@ public class Postfix {
 			return false;
 		}
 	}
-
+	// similar to isOperator but omits sqrt:, as expression can begin with sqrt:
+	private static boolean beginOperator(String string){
+		if (string.equals("+") || string.equals("-") 
+				|| string.equals("*") || string.equals("^")
+				|| string.equals("/")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	// checks whether the operator is associative.
 	private static boolean isAssociative(String token, int type) {
 		if (!isOperator(token)) {
