@@ -1,4 +1,6 @@
 
+
+
 public class codeTester {
 	
 	public static boolean isOperator(String input) {
@@ -26,12 +28,24 @@ public class codeTester {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println(SymbolicMath.add("3/8", "3/8").toString());
-		System.out.println(SymbolicMath.subtract("4", "-3").toString());
-		System.out.println(SymbolicMath.multiply("-4", "pi").toString());
-		System.out.println(SymbolicMath.divide("3/2", "1/4").toString());
+	
+		String[] testEquations = {"sqrt:3","sqrt:4","sqrt:4/2","sqrt:(4/2)", "sqrt:(5/2)","sqrt:8",//testing sqrt with numbers only
+				"2^2","5^3","pi^3","e^10","2^1"};
 		
-		//System.out.println(SymbolicMath.calculate(new String[]{"6", "3", "pi", "+", "5", "+", "+"}));
+		String[] actualAnswers = {"sqrt:3", "2","1","sqrt:2","sqrt:5/sqrt:2","2*sqrt:2",//correspond to line 1 of testEquations
+				"4","125","pi^3","e^10","2"};
+		
+		Boolean approximate = false;
+		Calculator c = new Calculator();
+		String testAnswer = "";
+		for (int i=0; i<testEquations.length; i++){
+			testAnswer = c.calculate(testEquations[i],approximate);
+			if(testAnswer.equals(actualAnswers[i]))
+				System.out.println("CORRECT!	For equation "+testEquations[i]+" ; test answer "+testAnswer+" = "+actualAnswers[i]);
+			else
+				System.out.println("WRONG!		For equation "+testEquations[i]+" ; test answer "+testAnswer+" != "+actualAnswers[i]);
+			
+		}
 	}
 
 }
