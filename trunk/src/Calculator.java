@@ -52,6 +52,8 @@ public class Calculator {
 
 		} catch (NullPointerException e) {
 			System.out.println("ans is not set; please visit History menu");
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("ans is not set; please visit History menu");
 		}
 
 		// Postfix conversion
