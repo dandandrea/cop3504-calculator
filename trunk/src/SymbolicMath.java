@@ -55,7 +55,6 @@ public class SymbolicMath {
 		if (length == 0) return "";
 		return operationStack.peek();
 		
-		
 
 		
 	}
@@ -164,7 +163,7 @@ public class SymbolicMath {
 		f2 = new Fraction(f2.getDenominator().toString(), f2.getNumerator().toString());
 		if(f2.getDenominator().getNum() == 0)
 		{
-			throw new ArithmeticException("Calculation error: cannot divide by 0");
+			throw new ArithmeticException("Calculation error: cannot divide by zero");
 		}
 		return multiply(f1, f2);
 	}
@@ -172,11 +171,11 @@ public class SymbolicMath {
 	public static Fraction raise(String arg1, String arg2){
 		Fraction f1 = new Fraction(arg2);
 		Fraction f2 = new Fraction(arg1); // now in form f1^f2
+		Boolean  neg = false;
 		if(f2.getNumerator().getNum()<0){
-			Irrational temp = new Irrational(f1.getDenominator().toString());
-			f1.setNumerator(f1.getDenominator());
-			f1.setDenominator(temp);
+		
 			f2.getNumerator().setNum(f2.getNumerator().getNum()*-1);
+			neg = true;
 		}
 		if (f2.toString().equals("1/2")){ //special case of raising to 1/2 == sqrt:
 			f1 = sqrt(f1.toString());
@@ -185,7 +184,11 @@ public class SymbolicMath {
 				&&f2.getNumerator().getSqr().equals("1")){ //makes sure not raising to an irrational
 			f1.getNumerator().exponentiate(f2.getNumerator());
 		}
-		
+		if(neg){
+			Irrational temp = new Irrational(f1.getNumerator().toString());
+			f1.setNumerator(f1.getDenominator());
+			f1.setDenominator(temp);
+		}
 		
 		return f1;
 	}
