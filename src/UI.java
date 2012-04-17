@@ -158,7 +158,7 @@ public class UI
 				if(Integer.parseInt(choiceNum) >= 1 && Integer.parseInt(choiceNum) <= calculator.getHistory().size())
 				{
 					calculator.setCurrentHistoryItem(Integer.parseInt(choiceNum) - 1);
-					System.out.println("You chose " + calculator.getHistory().get(Integer.parseInt(choiceNum) - 1).getAnswer());
+					System.out.println("You chose history item #" + choiceNum + " with an answer value of \"" + calculator.getHistory().get(Integer.parseInt(choiceNum) - 1).getAnswer() + "\"");
 				}
 					
 				else
