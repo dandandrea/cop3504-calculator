@@ -112,7 +112,7 @@ public class ApproximateMath {
 		ans = stack.pop();
 		
 		return ans;
-	}
+	 }
 
 	/**
 	 * 
