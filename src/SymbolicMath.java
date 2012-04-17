@@ -28,7 +28,7 @@ public class SymbolicMath {
 				//Java can't use switch() with strings, so... :/
 				if(thisElement.equals("+")) {
 					//Pushes result of add() into stack, while popping two previous elements.
-					operationStack.addFirst(add(operationStack.pop(), operationStack.pop()).toString());
+					operationStack.addFirst(add(operationStack.pop(), operationStack.pop()));
 				}
 				//Etc.
 				if(thisElement.equals("-")) {
@@ -73,10 +73,14 @@ public class SymbolicMath {
 	 * @param arg2
 	 * @return
 	 */
-	public static Fraction add(String arg1, String arg2){
+	public static String add(String arg1, String arg2){
 		Fraction f1 = new Fraction(arg1);
 		Fraction f2 = new Fraction(arg2);
-		return add(f1, f2);
+		try{
+			return add(f1, f2).toString();
+		} catch (Exception e){
+			return (arg1 + "+" + arg2);
+		}
 	}
 	
 	/**
@@ -156,7 +160,7 @@ public class SymbolicMath {
 		f2 = new Fraction(f2.getDenominator().toString(), f2.getNumerator().toString());
 		if(f2.getDenominator().getNum() == 0)
 		{
-			throw new ArithmeticException("Cannot divide by zero");
+			throw new ArithmeticException("Calculation error: cannot divide by 0");
 		}
 		return multiply(f1, f2);
 	}
@@ -180,7 +184,7 @@ public class SymbolicMath {
 		Calculator c = new Calculator();
 		float nTest = Float.valueOf(c.calculate(arg1, true));
 		if (nTest < 0)
-			throw new IllegalArgumentException("Cannot find square root of negative number");
+			throw new IllegalArgumentException("Calculation error: negative sqrt not allowed");
 		
 		Fraction f1 = new Fraction(arg1);
 		if (isInteger(f1.getNumerator().toString())
