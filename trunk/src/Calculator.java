@@ -51,9 +51,9 @@ public class Calculator {
 			}
 
 		} catch (NullPointerException e) {
-			System.out.println("ans is not set; please visit History menu");
+			return "ans is not set; please visit History menu";
 		} catch (IndexOutOfBoundsException e) {
-			System.out.println("ans is not set; please visit History menu");
+			return "ans is not set; please visit History menu";
 		}
 
 		// Postfix conversion
@@ -70,9 +70,12 @@ public class Calculator {
 			try {
 				ApproximateMath approx = new ApproximateMath();
 				answer = approx.Approximate(post);
-				addHistoryItem(new HistoryItem(expression, answer)); //adds the expression and the corresponding answer to the list of history item
-				setCurrentHistoryItem(history.size()-1); //sets the expression and the corresponding answer to the current history item.f
-
+	
+				// Only add the answer if it was not null
+				if (answer != null && answer.trim().equals("") == false) {
+					addHistoryItem(new HistoryItem(expression, answer)); //adds the expression and the corresponding answer to the list of history item
+					setCurrentHistoryItem(history.size()-1); //sets the expression and the corresponding answer to the current history item.
+				}
 					
 				return answer;
 
