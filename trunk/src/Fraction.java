@@ -17,19 +17,6 @@ public class Fraction {
 			Denominator = new Irrational("1");
 		}
 
-		// if (Math.isInteger(expression) == true){//case when only integer is
-		// entered
-		// Numerator = expression;
-		// Denominator = "1";
-		// }
-		// else if (split.length == 2){//case when fraction string is entered
-		// Numerator = split[0];
-		// Denominator = split[1];
-		// }
-
-		// case when irrational is entered (e,pi)
-		// case when sqrt or ^ is used?
-		// else?
 		this.simplify();
 	}
 
@@ -69,18 +56,6 @@ public class Fraction {
 
 	private void simplify() {
 
-			//Irrational numer = new Irrational("1");
-			//Irrational denomin = new Irrational("1");
-//			if(this.Denominator.getNum()!=1){//takes care of simplifying numbers
-//				EulerSimplify();				
-//			}
-			//if(this.Numerator.getSqr().equals(this.Denominator.getSqr())){
-			//	this.Numerator.setSqr("1");
-			//	this.Denominator.setSqr("1");
-			//}
-		
-		
-		
 		//rationalize
 		if (!this.Denominator.getSqr().equals("1")) {
 			this.Numerator.multiply(this.Denominator);
@@ -136,12 +111,8 @@ public class Fraction {
 
 	private void EulerSimplify() {
 		int numer, denom, temp, pastdenom = 0;
-		//Boolean neg = false;
 		numer = this.Numerator.getNum();
 		denom = this.Denominator.getNum();
-		//if ((numer < 0 || denom < 0) && !(denom < 0 && numer < 0)) {
-		//	neg = true;
-		//}
 		Double decimal = (double) numer / (double) denom;
 		numer = 0;
 		denom = 1;
@@ -162,9 +133,6 @@ public class Fraction {
 			i++;
 		} while (Math.abs((decimal - ((double) numer / (double) denom))) > .001
 				&& z < 100 && i < 20);
-		//if (neg) {
-		//	numer = (-1 * numer);
-		//}
 		
 		this.Numerator.setNum(numer);
 		this.Denominator.setNum(denom);
@@ -201,7 +169,6 @@ public class Fraction {
 		}
 	}
 
-	// We should probably put this in another class.
 	/**
 	 * Returns true if the denominator is equal to (exactly) 1.
 	 * 
