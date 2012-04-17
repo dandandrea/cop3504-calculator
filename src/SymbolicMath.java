@@ -54,9 +54,7 @@ public class SymbolicMath {
 		irrationalarray.clear();
 		if (length == 0) return "";
 		return operationStack.peek();
-		
 
-		
 	}
 	
 	/**
@@ -177,7 +175,34 @@ public class SymbolicMath {
 			f2.getNumerator().setNum(f2.getNumerator().getNum()*-1);
 			neg = true;
 		}
-		if (f2.toString().equals("1/2")){ //special case of raising to 1/2 == sqrt:
+		
+		if (f2 != null && f2.getDenominator() != null && f2.getDenominator().getNum() > 2) {
+			// Are we raising to an odd root or an even root?
+			// Throw an exception if raising to an odd root
+			if (f2.getDenominator().getNum() % 2 == 1) {
+				throw new RuntimeException("Can only raise to even roots (1/2, 1/4, 1/6, etc)");
+			} else {
+				// Is the numerator of the fraction that we are raising to greater than one?
+				// If so then we'll apply that power to the numerator and denominator before taking the square roots
+				f1.getNumerator().exponentiate(f2.getNumerator());
+				f1.getDenominator().exponentiate(f2.getNumerator());
+
+				// We're going to take a number of successive square roots based on the denominator
+				// i.e. raise to 1/4th power will take 2 square roots
+				//      raise to 1/6th power will take 3 square roots
+				//      ...
+				int numSquareRoots = f2.getDenominator().getNum() / 2;
+
+				// Now apply the square roots
+				for (int i = 0; i < numSquareRoots; i++) {
+					f1.setNumerator(raise("1/2", new Integer(f1.getNumerator().getNum()).toString()).getNumerator());
+					f1.setDenominator(raise("1/2", new Integer(f1.getDenominator().getNum()).toString()).getNumerator());
+				}
+			}
+		}
+		else if (f2.getDenominator().toString().equals("2")){ //special case of raising to 1/2 == sqrt:
+			f1.getNumerator().exponentiate(f2.getNumerator());
+			f1.getDenominator().exponentiate(f2.getNumerator());
 			f1 = sqrt(f1.toString());
 		}
 		else if (f2.getDenominator().toString().equals("1")&&f2.getNumerator().getPie()==0&&f2.getNumerator().getEe()==0
