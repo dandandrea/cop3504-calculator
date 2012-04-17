@@ -70,7 +70,7 @@ public class ApproximateMath {
 					//divide by zero error;
 					
 					if(b == 0){
-						throw new ArithmeticException("Division by zero error");
+						throw new ArithmeticException("Cannot divide by zero");
 					}
 					
 					a = stack.pop();
