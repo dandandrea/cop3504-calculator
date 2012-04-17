@@ -40,7 +40,8 @@ public class codeTester {
 				//test cases given
 				,"3+(2+32/(6*(6*(4-3/6))))","sqrt:(2+6)","3-2/4+5*7+4/6+(3/2+*10)"
 				,"3+(2+32/6*(6*(4-3/6))","8+7*sqrt:(7-10*2-3/(4-7))","22*(3-5)+4*5/(3*4-2*6)"
-				,"(22*(3-5)+4)*5/(3*4-2*6)",};
+				,"(22*(3-5)+4)*5/(3*4-2*6)","(22*(3-5)+4*pi-e^2)*5/(3*4-2*6)","-8+7*sqrt:(7-10*2-3/(4-7))"
+				,"2^(7-2/4)","(22*(3-5)+4)*5/(3*4-2*6)+2^-1","6^(4-3*2)","16^(1/4)"};
 		
 		String[] actualAnswers = {//answers correspond by line and position
 				"8","2*pi","pi^2","pi*e","3*sqrt:2","3*e","48*pi^2*e^3*sqrt:2","Expression is mal-formed: adjacent operators","2"
@@ -54,7 +55,8 @@ public class codeTester {
 				,"331/63","2*sqrt:2","Expression is mal-formed: adjacent operators"
 				,"Expression is mal-formed: unmatched parenthesis","Calculation error: negative sqrt not allowed"
 				,"Calculation error: cannot divide by 0","Calculation error: cannot divide by 0"
-				};
+				,"Calculation error: cannot divide by 0","Calculation error: negative sqrt not allowed","64*sqrt:2","Calculation error: cannot divide by 0"
+				,"1/36","2"};
 		
 		Boolean approximate = false;
 		Calculator c = new Calculator();
