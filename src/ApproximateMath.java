@@ -92,17 +92,17 @@ public class ApproximateMath {
 					a = stack.pop();
 					//division by zero error
 					if(b<0&&a==0){
-						throw new ArithmeticException("can not divide by zero");
+						throw new ArithmeticException("Cannot divide by zero");
 					}
 					if(a<0 && (Math.pow(b, -1)>0 && Math.pow(b, -1)%2==0)){
 						
-						throw new ArithmeticException("calculator does not support imaginary numbers");
+						throw new ArithmeticException("Calculator does not support imaginary numbers");
 					}
 					stack.push(Math.pow(a, b));
 
 				} else if (expression.get(i).equals("sqrt:")) {
 					if(stack.peek()<0){
-						throw new ArithmeticException("Can not take square roots of negative numbers");
+						throw new ArithmeticException("Cannot take square roots of negative numbers");
 					}
 					stack.push(Math.sqrt(stack.pop()));
 				}
