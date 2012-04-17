@@ -6,7 +6,6 @@ public class Fraction {
 
 		// Split the input string by the "/" character.
 		String split[] = expression.split("\\/");
-
 		// If we have two elements in split[], that means we have a fraction...
 		if (split.length == 2) {
 			Numerator = new Irrational(split[0]);
@@ -107,13 +106,12 @@ public class Fraction {
 	}
 
 	private void EulerSimplify() {
-
 		int numer, denom, temp, pastdenom = 0;
-		Boolean neg = false;
+		Boolean neg = true;
 		numer = this.Numerator.getNum();
 		denom = this.Denominator.getNum();
 		if ((numer < 0 || denom < 0) && !(denom < 0 && numer < 0)) {
-			neg = true;
+			neg = false;
 		}
 		Double decimal = (double) numer / (double) denom;
 		numer = 0;
@@ -136,9 +134,9 @@ public class Fraction {
 		} while (Math.abs((decimal - ((double) numer / (double) denom))) > .001
 				&& z < 100 && i < 20);
 		if (neg) {
-			numer = -1 * numer;
+			numer = (-1 * numer);
 		}
-
+		
 		this.Numerator.setNum(numer);
 		this.Denominator.setNum(denom);
 
@@ -158,7 +156,7 @@ public class Fraction {
 
 	public String toString() {
 		this.simplify();
-		if (isWholeExpression(this)) {
+		if (Denominator.toString().equals("1")) {
 			return Numerator.toString();
 		} else {
 			return (Numerator.toString() + "/" + Denominator.toString());
