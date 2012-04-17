@@ -178,19 +178,25 @@ public class Irrational {
 		this.Ee = this.Ee+num2.getEe();
 		this.Pie = this.Pie+num2.getPie();
 		//sqrt handling
-		if ((this.Sqr.equals("1")||(num2.getSqr().equals("1")))&& //case: sqrt's part of either number but not both
-				(!((this.Sqr.equals("1"))&&(num2.getSqr().equals("1"))))){
-			if (this.Sqr.equals("1"))
-				this.Sqr = num2.getSqr();
+
+		if (this.Sqr.equals("1")&&!num2.getSqr().equals("1")){
+			this.Sqr = num2.getSqr();
 		}
-		if (this.Sqr.equals(num2.getSqr())&&!this.Sqr.equals("1")){//case: sqrt's are equal, get rid of the sqrt
-			if (!this.Sqr.contains("\\+")||!this.Sqr.contains("\\-")){//doesn't work, looping the multiplication 
-				this.multiply((new Irrational(this.Sqr)));
-				//String[] x = this.toString().split("sqrt:");
-				//String noSqr = x[0];
-				//Fraction f = new Fraction(SymbolicMath.multiply(noSqr, this.getSqr()).toString());
-				//...not sure where to go from here
-			}
+		else if (this.Sqr.equals(num2.getSqr())&&!this.Sqr.equals("1")){
+			Irrational sqrt = new Irrational(this.getSqr());
+			
+			this.Num = sqrt.getNum()*this.Num;
+			this.Ee = this.Ee+sqrt.getEe();
+			this.Pie = this.Pie+sqrt.getPie();
+			this.Sqr = "1";
+		}else if(this.Sqr.equals("1")&&num2.getSqr().equals("1")){
+			
+		}else{
+			Irrational sqrt = new Irrational(this.getSqr());
+			Irrational sqrt2 = new Irrational(num2.getSqr());
+			sqrt.multiply(sqrt2);
+			this.Sqr = sqrt.toString();
+			
 		}
 	}
 	public void exponentiate(Irrational num2){
