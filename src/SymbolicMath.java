@@ -185,12 +185,24 @@ public class SymbolicMath {
 		Fraction f1 = new Fraction(arg1);
 		if (isInteger(f1.getNumerator().toString())
 				&&isInteger(f1.getDenominator().toString())){//case to handle integers and integer fractions
-			
+			f1.setNumerator(perfectSquare(f1.getNumerator()));
+			f1.setDenominator(perfectSquare(f1.getDenominator()));
 		}
 		
 		return f1;
 	}
-
-
+	private static Irrational perfectSquare(Irrational num){ // 
+		Irrational ans = new Irrational("sqrt:"+num.toString());
+		for(int i=num.getNum()/2; i > 0; i--){
+			if(num.getNum()%(i*i)==0){
+				ans.setNum(i);
+				ans.setSqr(Integer.toString(num.getNum()/(i*i)));
+				break;
+			}
+		}
+		
+		return ans;
+	}
 	
+
 }
