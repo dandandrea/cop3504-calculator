@@ -103,6 +103,7 @@ public class Postfix {
 
 		String[] NegativeParsed = new String[parseholder.size()];
 		parseholder.toArray(NegativeParsed);
+		parseholder.clear();
 		return NegativeParsed;
 	}
 
@@ -250,6 +251,8 @@ public class Postfix {
 		}
 		String[] postfixA = new String[postfix.size()];
 		postfix.toArray(postfixA);
+		postfix.clear();
+		stack.clear();
 		return postfixA;
 	}
 
