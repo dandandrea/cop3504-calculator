@@ -108,9 +108,7 @@ public class SymbolicMath {
 		arg2.getNumerator().multiply(arg1.getDenominator());
 		arg1.getNumerator().add(arg2.getNumerator());
 		arg1.getDenominator().multiply(arg2.getDenominator());
-		
 		return arg1;
-		
 	}
 	
 	/**
