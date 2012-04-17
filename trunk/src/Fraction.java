@@ -91,10 +91,10 @@ public class Fraction {
 				&& this.Denominator.getEe() > 0) {
 			this.Numerator.setEe(this.Numerator.getEe() - this.Denominator.getEe());
 			this.Denominator.setEe(0);
-		}else if (this.Numerator.getEe() < this.Denominator.getEe()
+		}else if ((this.Numerator.getEe() < this.Denominator.getEe())
 				&& this.Denominator.getEe() > 0) {
-			this.Numerator.setEe(0);
 			this.Denominator.setEe(this.Denominator.getEe()-this.Numerator.getEe());
+			this.Numerator.setEe(0);
 		}
 		
 		//simplify pi terms
@@ -106,8 +106,8 @@ public class Fraction {
 		}else if(this.Numerator.getPie() >= this.Denominator.getPie()
 				&& this.Denominator.getPie() > 0) {
 			
-			this.Numerator.setPie(0);
 			this.Denominator.setPie(this.Denominator.getPie()-this.Numerator.getPie());
+			this.Numerator.setPie(0);
 		}
 		
 
