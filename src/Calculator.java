@@ -43,7 +43,7 @@ public class Calculator {
 		// replace ans with actual answer
 		try {
 			if (expression.contains("ans")) {
-				if (ApproximateMath.isNumber((history.get(currentHistoryItem)
+				if (!ApproximateMath.isNumber((history.get(currentHistoryItem)
 						.getAnswer()))) {
 					return "Expressions containing decimals are not supported.";
 				} else {
@@ -59,11 +59,9 @@ public class Calculator {
 		//System.out.println("Answer is always 42.");
 		// Postfix conversion
 		try {
+			
 			post = Postfix.InfixtoPostfix(expression);
-//			System.out.print("postfix: "+post[0]); //for troubleshooting purposes
-//			for(int i = 1; i < post.length; i++)
-//				System.out.print(", "+ post[i]);
-//			System.out.println(); //remove for final
+
 		} catch (Exception e) {
 			return e.getMessage();
 		}
@@ -71,9 +69,12 @@ public class Calculator {
 		// Approximate calculation
 		if (approximate) {
 			try {
-				answer = ApproximateMath.Approximate(post);
+				ApproximateMath approx = new ApproximateMath();
+				answer = approx.Approximate(post);
 				addHistoryItem(new HistoryItem(expression, answer)); //adds the expression and the corresponding answer to the list of history item
-				setCurrentHistoryItem(history.size()-1); //sets the expression and the corresponding answer to the current history item.
+				setCurrentHistoryItem(history.size()-1); //sets the expression and the corresponding answer to the current history item.f
+
+					
 				return answer;
 
 			} catch (Exception e) {
@@ -87,6 +88,15 @@ public class Calculator {
 				answer = SymbolicMath.calculate(post);
 				addHistoryItem(new HistoryItem(expression, answer)); //adds the expression and the corresponding answer to the list of history item
 				setCurrentHistoryItem(history.size()-1); //sets the expression and the corresponding answer to the current history item.
+				
+				if(answer.equals("42")){
+					answer = "Answer to the Ultimate Question of Life,the Universe, and Everything   (42)";
+				}else if(answer.equals("73")){
+					answer = "73, a palindrome in binary (1001001)";
+				}else if(answer.equals("88")){
+					answer = "time travel requires 1.21 gigawatts  (88)";
+				}
+				
 				return answer;
 			} catch (Exception e) {
 				return e.getMessage();
