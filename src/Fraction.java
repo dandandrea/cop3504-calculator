@@ -112,9 +112,24 @@ public class Fraction {
 		
 
 			//simplifies rational part of fraction
-		if(this.Denominator.getNum()!=1)//takes care of simplifying numbers
-			EulerSimplify();				
-//		}
+		if(this.Denominator.getNum()!=1){//takes care of simplifying numbers
+			boolean neg = false;
+			if ((this.Denominator.getNum()<0) && (this.Numerator.getNum()<0)){
+				this.Numerator.setNum(-1*this.Numerator.getNum());
+				this.Denominator.setNum(-1*this.Denominator.getNum());
+			}
+			if ((this.Denominator.getNum()<0) && (this.Numerator.getNum()>0)){
+				this.Denominator.setNum(-1*this.Denominator.getNum());
+				neg = true;
+			}
+			if ((this.Denominator.getNum()>0) && (this.Numerator.getNum()<0)){
+				this.Numerator.setNum(-1*this.Numerator.getNum());
+				neg = true;
+			}
+			EulerSimplify();
+			if (neg)
+				this.Numerator.setNum(-1*this.Numerator.getNum());
+		}
 
 
 	}
@@ -124,9 +139,9 @@ public class Fraction {
 		Boolean neg = false;
 		numer = this.Numerator.getNum();
 		denom = this.Denominator.getNum();
-		if ((numer < 0 || denom < 0) && !(denom < 0 && numer < 0)) {
-			neg = true;
-		}
+		//if ((numer < 0 || denom < 0) && !(denom < 0 && numer < 0)) {
+		//	neg = true;
+		//}
 		Double decimal = (double) numer / (double) denom;
 		numer = 0;
 		denom = 1;
@@ -147,9 +162,9 @@ public class Fraction {
 			i++;
 		} while (Math.abs((decimal - ((double) numer / (double) denom))) > .001
 				&& z < 100 && i < 20);
-		if (neg) {
-			numer = (-1 * numer);
-		}
+		//if (neg) {
+		//	numer = (-1 * numer);
+		//}
 		
 		this.Numerator.setNum(numer);
 		this.Denominator.setNum(denom);
