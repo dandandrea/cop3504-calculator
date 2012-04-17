@@ -136,7 +136,7 @@ public class Fraction {
 
 	private void EulerSimplify() {
 		int numer, denom, temp, pastdenom = 0;
-		Boolean neg = false;
+		//Boolean neg = false;
 		numer = this.Numerator.getNum();
 		denom = this.Denominator.getNum();
 		//if ((numer < 0 || denom < 0) && !(denom < 0 && numer < 0)) {
