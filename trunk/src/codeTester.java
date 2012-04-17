@@ -30,7 +30,7 @@ public class codeTester {
 	public static void main(String[] args) {
 	
 		String[] testEquations = {//testing multiply with numbers and irrationals
-				"4*2","2*pi","pi*pi","pi*e","3*sqrt:2","e*3","sqrt:2*e*e*e*pi*4*pi*6*sqrt:2","2*sqrt:sqrt:5"
+				"4*2","2*pi","pi*pi","pi*e","3*sqrt:2","e*3","sqrt:2*e*e*e*pi*4*pi*6*sqrt:2","2*sqrt:sqrt:5","sqrt:2*sqrt:2"
 				//testing divide and simplify with numbers and irrationals
 				,"1/2","2/6","16/8","2/pi","e/2","e/pi","(2*pi)/(2*e)","(2*sqrt:3)/(2*sqrt:3)","pi^3/pi^2","e^2/e^3"
 				//testing sqrt with numbers only
@@ -40,7 +40,7 @@ public class codeTester {
 				};
 		
 		String[] actualAnswers = {//answers correspond by line and position
-				"8","2*pi","pi^2","pi*e","3*sqrt:2","3*e","48*pi^2*e^3*sqrt:2","Expression is mal-formed"
+				"8","2*pi","pi^2","pi*e","3*sqrt:2","3*e","48*pi^2*e^3*sqrt:2","Expression is mal-formed","2"
 				//
 				,"1/2","1/3","2","2/pi","e/2","e/pi","pi/e","1","pi","1/e"
 				//
