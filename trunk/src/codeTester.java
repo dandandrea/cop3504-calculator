@@ -1,5 +1,5 @@
 
-
+// Evidence of a well tested program (or an attempt)
 
 public class codeTester {
 	
@@ -34,10 +34,15 @@ public class codeTester {
 				//testing divide and simplify with numbers and irrationals
 				,"1/2","2/6","16/8","2/pi","e/2","e/pi","(2*pi)/(2*e)","(2*sqrt:3)/(2*sqrt:3)","pi^3/pi^2","e^2/e^3"
 				//testing sqrt with numbers and irrationals
-				,"sqrt:3","sqrt:4","sqrt:4/2","sqrt:(4/2)", "sqrt:(5/2)","sqrt:80","sqrt:pi","sqrt:(e^2)"
+				,"sqrt:3","sqrt:4","sqrt:4/2","sqrt:(4/2)", "sqrt:(5/2)","sqrt:80","sqrt:(3^2)","(sqrt:3)*(sqrt:3)"
 				//testing exponents with numbers and irrationals
 				,"2^2","5^3","2^1","2^(1/2)","25^(1/2)"
-				//t
+				//testing add with numbers and irrationals
+				,"2+2","-2+3","pi+1","pi+e","pi+sqrt:2","-5+5"
+				//testing subtract with numbers and irrationals
+				,"4-2","2-4","2-2","pi-e","6-sqrt:4","e-sqrt:2"
+				//testing order of operations (using slight variations of given cases)
+				,"8+7*(10*2-3/(4-7))","22*(3-5)+4*5/(3*6-2*6)","(22*(3-5)+4)*5/(3-2*4)","(22*(3-5)+4)*5/(3*4)+2^-1"
 				//test cases given
 				,"3+(2+32/(6*(6*(4-3/6))))","sqrt:(2+6)","3-2/4+5*7+4/6+(3/2+*10)"
 				,"3+(2+32/6*(6*(4-3/6))","8+7*sqrt:(7-10*2-3/(4-7))","22*(3-5)+4*5/(3*4-2*6)"
@@ -49,14 +54,20 @@ public class codeTester {
 				//
 				,"1/2","1/3","2","2/pi","e/2","e/pi","pi/e","1","pi","1/e"
 				//
-				,"sqrt:3", "2","1","sqrt:2","sqrt:10/2","4*sqrt:5","sqrt:pi","e"
+				,"sqrt:3", "2","1","sqrt:2","sqrt:10/2","4*sqrt:5","3","3"
 				//
 				,"4","125","2","sqrt:2","5"
 				//
+				,"4","1","pi+1","pi+e","pi+sqrt:2","0"
+				//
+				,"2","-2","0","pi-e","4","e-sqrt:2"
+				//
+				,"155","-122/3","40","-97/6"
+				//
 				,"331/63","2*sqrt:2","Expression is mal-formed: adjacent operators"
 				,"Expression is mal-formed: unmatched parenthesis","Calculation error: negative sqrt not allowed"
-				,"Calculation error: cannot divide by 0","Calculation error: cannot divide by 0"
-				,"Calculation error: cannot divide by 0","Calculation error: negative sqrt not allowed","64*sqrt:2","Calculation error: cannot divide by 0"
+				,"Calculation error: cannot divide by zero","Calculation error: cannot divide by zero"
+				,"Calculation error: cannot divide by zero","Calculation error: negative sqrt not allowed","64*sqrt:2","Calculation error: cannot divide by zero"
 				,"1/36","2"};
 		
 		Boolean approximate = false;
