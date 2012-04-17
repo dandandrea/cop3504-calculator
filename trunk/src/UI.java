@@ -20,6 +20,7 @@ public class UI
 		//or back, and printing the main menu again after going through each method.
 		while (input != null && input.equalsIgnoreCase("Exit") == false && input.equalsIgnoreCase("Back") == false) {
 			input = sc.nextLine();
+			input = input.trim();
 
 			if (input.equalsIgnoreCase("Calculate"))
 			{
@@ -62,6 +63,7 @@ public class UI
 		
 		while(!choice2.equalsIgnoreCase("back")){
 			choice2 = sc.nextLine();
+			choice2 = choice2.trim();
 				if(choice2.equalsIgnoreCase("exit"))
 				{
 					System.out.println("Bye!");
@@ -80,7 +82,8 @@ public class UI
 					approx = true;
 				}
 				else
-				{
+				{	
+					
 					System.out.println(calculator.calculate(choice2,approx));
 				}
 			}
@@ -109,6 +112,7 @@ public class UI
 			System.out.println();
 
 			choice = sc.nextLine();
+			choice = choice.trim();
 			if (choice.equalsIgnoreCase("back")) 
 			{
 				break;
@@ -186,6 +190,7 @@ public class UI
 			System.out.println();
 
 			choice = sc.nextLine();
+			choice = choice.trim();
 			if (choice.equalsIgnoreCase("back")) 
 			{
 				break;
