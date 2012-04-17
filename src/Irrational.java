@@ -1,3 +1,4 @@
+import java.rmi.MarshalException;
 
 public class Irrational {
 	
@@ -182,9 +183,9 @@ public class Irrational {
 			this.Num = num2.getNum() - this.Num;
 			return true;
 		}else{
-			
+			SymbolicMath.addIrrationalItem(this);
 			num2.setNum(-1*num2.getNum());
-		
+			SymbolicMath.addIrrationalItem(num2);
 			return false;
 		}
 	}
