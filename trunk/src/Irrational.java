@@ -203,6 +203,12 @@ public class Irrational {
 		this.Ee = num2.getNum()*this.Ee;
 		this.Pie = num2.getNum()*this.Pie;
 		this.Num = (int) Math.pow(this.Num, num2.getNum());
+		Irrational sqrt = new Irrational(this.Sqr);
+		sqrt.Ee = num2.getNum()*sqrt.Ee;
+		sqrt.Pie = num2.getNum()*sqrt.Pie;
+		sqrt.Num = (int) Math.pow(sqrt.Num, num2.getNum());
+		this.Sqr = sqrt.toString();
+				
 	}
 
 	public void setNum(int num){
