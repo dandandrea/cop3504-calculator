@@ -132,7 +132,7 @@ public class Postfix {
 			if (i == 0) {
 				// first token of a well-formed expression must not be an
 				// operator.
-				if (beginOperator(expression[0])) {
+				if (beginOperator(expression[0])) { //changed so an expression can begin with sqrt:
 					throw new IllegalStateException("Expression is mal-formed: can't begin with "+expression[0]);
 				}
 				// first token cannot be a right parenthesis if expression is
@@ -143,14 +143,18 @@ public class Postfix {
 				}
 			}
 			if (i > 0 && i < expression.length - 1) {
-				if (isOperator(expression[i])) {
+				if (beginOperator(expression[i])) { //changed because 3*sqrt:5 was throwing an error
 					// expression cannot have to operators adjacent to each
 					// other
-					if (isOperator(expression[i - 1])
-							|| isOperator(expression[i + 1])) {
-
+					if ((beginOperator(expression[i - 1]) 
+							|| beginOperator(expression[i + 1]))) {
 						throw new IllegalStateException(
 								"Expression is mal-formed");
+					}
+				}
+				if (expression[i].equals("sqrt:")){
+					if (expression[i - 1].equals("sqrt:") || (expression[i + 1].equals("sqrt:"))){
+						throw new IllegalStateException("Expression is mal-formed");
 					}
 				}
 				// two numbers cannot be adjacent to each other in a wellformed
