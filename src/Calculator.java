@@ -83,10 +83,14 @@ public class Calculator {
 		// Exact Calculation
 		else 
 		{
-			answer = SymbolicMath.calculate(post);
-			addHistoryItem(new HistoryItem(expression, answer)); //adds the expression and the corresponding answer to the list of history item
-			setCurrentHistoryItem(history.size()-1); //sets the expression and the corresponding answer to the current history item.
-			return answer;
+			try {
+				answer = SymbolicMath.calculate(post);
+				addHistoryItem(new HistoryItem(expression, answer)); //adds the expression and the corresponding answer to the list of history item
+				setCurrentHistoryItem(history.size()-1); //sets the expression and the corresponding answer to the current history item.
+				return answer;
+			} catch (Exception e) {
+				return e.getMessage();
+			}
 
 		}
 	}

@@ -32,19 +32,19 @@ public class SymbolicMath {
 				}
 				//Etc.
 				if(thisElement.equals("-")) {
-					
+					operationStack.addFirst(subtract(operationStack.pop(), operationStack.pop()).toString());
 				}
 				if(thisElement.equals("*")) {
-					
+					operationStack.addFirst(multiply(operationStack.pop(), operationStack.pop()).toString());
 				}
 				if(thisElement.equals("/")) {
-					
+					operationStack.addFirst(divide(operationStack.pop(), operationStack.pop()).toString());
 				}
 				if(thisElement.equals("^")) {
-					
+					operationStack.addFirst(raise(operationStack.pop(), operationStack.pop()).toString());
 				}
 				if(thisElement.equals("sqrt:")) {
-					//REMEMBER: Only pops one number off.
+					operationStack.addFirst(sqrt(operationStack.pop()).toString());
 				}
 			}
 		}
@@ -113,86 +113,6 @@ public class SymbolicMath {
 		return arg1;
 		
 	}
-	/**
-		//If both fractions are whole numbers... (adding is trivial :D)
-		if (Fraction.isWholeNumber(arg1) && Fraction.isWholeNumber(arg2)) {
-			
-			//Create strings to manipulate
-			String num1 = arg1.getNumerator().toString();
-			String num2 = arg2.getNumerator().toString();
-			
-			//If both strings are actual numbers... (then adding is even trivial-er...!)
-			if (isInteger(num1) && isInteger(num2)) {
-				int int1 = Integer.parseInt(num1);
-				int int2 = Integer.parseInt(num2);
-				Integer int_return = int1 + int2;
-				result = int_return.toString();
-			} else 
-			//Otherwise, we have irrationals.
-			{
-				List<String> num1_tokenized = Tokenizer.tokenizeExpression(num1);
-				List<String> num2_tokenized = Tokenizer.tokenizeExpression(num2);
-				List<String> expressionList;
-
-				expressionList.addAll(num1_tokenized);
-				expressionList.add("+");
-				expressionList.addAll(num2_tokenized);
-				
-				String[] expressionStrArr = new String[num1_tokenized.size() + num2_tokenized.size() + 1];
-				expressionList.toArray(expressionStrArr);
-				
-				String[] postFixed = Postfix.InfixtoPostfix(expression);
-				
-				//This part will undoubtedly require some sort of recursion. 
-				//We must evaluate down to simplest form, where we can create an Irrational object.
-				//But what is the base case?
-				result = new Fraction(SymbolicMath.calculate(postFixed)).toString();
-			}
-		} else 
-			
-		{
-		
-		//If both fractions are whole numbers... (adding is trivial :D)
-		if (Fraction.isWholeNumber(arg1) && Fraction.isWholeNumber(arg2)) {
-			
-			//Create strings to manipulate
-			String num1 = arg1.getNumerator().toString();
-			String num2 = arg2.getNumerator().toString();
-			
-			//If both strings are actual numbers... (then adding is even trivial-er...!)
-			if (isInteger(num1) && isInteger(num2)) {
-				int int1 = Integer.parseInt(num1);
-				int int2 = Integer.parseInt(num2);
-				Integer int_return = int1 + int2;
-				result = int_return.toString();
-			} else 
-			//Otherwise, we have irrationals.
-			{
-				List<String> num1_tokenized = Tokenizer.tokenizeExpression(num1);
-				List<String> num2_tokenized = Tokenizer.tokenizeExpression(num2);
-				List<String> expressionList;
-
-				expressionList.addAll(num1_tokenized);
-				expressionList.add("+");
-				expressionList.addAll(num2_tokenized);
-				
-				String[] expressionStrArr = new String[num1_tokenized.size() + num2_tokenized.size() + 1];
-				expressionList.toArray(expressionStrArr);
-				
-				String[] postFixed = Postfix.InfixtoPostfix(expression);
-				
-				String[] postFixed = Postfix.InfixtoPostfix(newExpression);
-				
-				//This part will undoubtedly require some sort of recursion. 
-				//We must evaluate down to simplest form, where we can create an Irrational object.
-				//But what is the base case?
-				result = new Fraction(SymbolicMath.calculate(postFixed)).toString();
-			}
-		}
-		
-		return (new Fraction(result));
-	}
-	**/
 	
 	/**
 	 * High-level subtract method (which just adds a negative number).
@@ -201,8 +121,8 @@ public class SymbolicMath {
 	 * @return
 	 */
 	public static Fraction subtract(String arg1, String arg2){
-		Fraction f1 = new Fraction(arg1);
-		Fraction f2 = new Fraction(arg2);
+		Fraction f1 = new Fraction(arg2);
+		Fraction f2 = new Fraction(arg1);
 		f2.getNumerator().multiply(new Irrational("-1"));
 		return add(f1, f2);
 	}	
@@ -233,39 +153,55 @@ public class SymbolicMath {
 	 * @return
 	 */
 	public static Fraction divide(String arg1, String arg2){
-		Fraction f1 = new Fraction(arg1);
-		Fraction f2 = new Fraction(arg2);
+		Fraction f1 = new Fraction(arg2);
+		Fraction f2 = new Fraction(arg1);
 		f2 = new Fraction(f2.getDenominator().toString(), f2.getNumerator().toString());
 		return multiply(f1, f2);
 	}
 	
-	public Fraction raise(String arg1, String arg2){
-		Fraction f1 = new Fraction(arg1);
-		Fraction f2 = new Fraction(arg2);
-		if(f2.isRational()&&(f2.getDenominator().getNum()==1)){
-			Irrational exp = new Irrational(Integer.toString(f2.getNumerator().getNum()));
-			f1.getNumerator().exponentiate(exp);
-			f1.getDenominator().exponentiate(exp);
-			return f1;
-		}else if(f2.isRational()&&(f2.getDenominator().getNum()==2)){
-			Irrational exp = new Irrational(Integer.toString(f2.getNumerator().getNum()));
-			f1.getNumerator().exponentiate(exp);
-			f1.getDenominator().exponentiate(exp);
-			f1.getNumerator().sqrt();
-			f1.getDenominator().sqrt();
-			return f1;
-		}else{
-			throw new IllegalArgumentException("This exponentiation type is not supported; can only be done with rational numbers that are multiples of 1/2");
+	public static Fraction raise(String arg1, String arg2){
+		Fraction f1 = new Fraction(arg2);
+		Fraction f2 = new Fraction(arg1); // now in form f1^f2
+		if (f2.toString().equals("1/2")){ //special case of raising to 1/2 == sqrt:
+			f1 = sqrt(f1.toString());
 		}
+		else if (f2.getDenominator().toString().equals("1")&&f2.getNumerator().getPie()==0&&f2.getNumerator().getEe()==0
+				&&f2.getNumerator().getSqr().equals("1")){ //makes sure not raising to an irrational
+			f1.getNumerator().exponentiate(f2.getNumerator());
+		}
+		
+		
+		return f1;
 	}
 	
-	public Fraction sqrt(String arg1, String arg2){
-		Fraction f1 = new Fraction(arg1);
-		f1.getNumerator().sqrt();
-		f1.getDenominator().sqrt();
-		return f1;
+	public static Fraction sqrt(String arg1){
+		Calculator c = new Calculator();
+		float nTest = Float.valueOf(c.calculate(arg1, true));
+		if (nTest < 0)
+			throw new IllegalArgumentException("Cannot find square root of negative number");
 		
+		Fraction f1 = new Fraction(arg1);
+		if (isInteger(f1.getNumerator().toString())
+				&&isInteger(f1.getDenominator().toString())){//case to handle integers and integer fractions
+			f1.setNumerator(perfectSquare(f1.getNumerator()));
+			f1.setDenominator(perfectSquare(f1.getDenominator()));
+		}
+		
+		return f1;
 	}
+	private static Irrational perfectSquare(Irrational num){ // 
+		Irrational ans = new Irrational("sqrt:"+num.toString());
+		for(int i=num.getNum()/2; i > 0; i--){
+			if(num.getNum()%(i*i)==0){
+				ans.setNum(i);
+				ans.setSqr(Integer.toString(num.getNum()/(i*i)));
+				break;
+			}
+		}
+		
+		return ans;
+	}
+	
 	public static void addIrrationalItem(Irrational new_item){
 		irrationalarray.add(new_item);
 	}
