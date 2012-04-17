@@ -33,10 +33,11 @@ public class codeTester {
 				"4*2","2*pi","pi*pi","pi*e","3*sqrt:2","e*3","2*e*e*e*pi*4*pi*6*sqrt:2","2*sqrt:sqrt:5","sqrt:2*sqrt:2"
 				//testing divide and simplify with numbers and irrationals
 				,"1/2","2/6","16/8","2/pi","e/2","e/pi","(2*pi)/(2*e)","(2*sqrt:3)/(2*sqrt:3)","pi^3/pi^2","e^2/e^3"
-				//testing sqrt with numbers only
-				,"sqrt:3","sqrt:4","sqrt:4/2","sqrt:(4/2)", "sqrt:(5/2)","sqrt:80"
-				//testing exponents with whole numbers and whole fractions only
+				//testing sqrt with numbers and irrationals
+				,"sqrt:3","sqrt:4","sqrt:4/2","sqrt:(4/2)", "sqrt:(5/2)","sqrt:80","sqrt:pi","sqrt:e^2"
+				//testing exponents with numbers and irrationals
 				,"2^2","5^3","2^1","2^(1/2)","25^(1/2)"
+				//t
 				//test cases given
 				,"3+(2+32/(6*(6*(4-3/6))))","sqrt:(2+6)","3-2/4+5*7+4/6+(3/2+*10)"
 				,"3+(2+32/6*(6*(4-3/6))","8+7*sqrt:(7-10*2-3/(4-7))","22*(3-5)+4*5/(3*4-2*6)"
@@ -48,7 +49,7 @@ public class codeTester {
 				//
 				,"1/2","1/3","2","2/pi","e/2","e/pi","pi/e","1","pi","1/e"
 				//
-				,"sqrt:3", "2","1","sqrt:2","sqrt:10/2","4*sqrt:5"
+				,"sqrt:3", "2","1","sqrt:2","sqrt:10/2","4*sqrt:5","sqrt:pi","e"
 				//
 				,"4","125","2","sqrt:2","5"
 				//
