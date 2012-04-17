@@ -15,7 +15,7 @@ public class SymbolicMath {
 		if (length == 0) return "";
 		
 		irrationalarray.clear();
-		
+
 		//Initializes our "Stack"
 		LinkedList<String> operationStack = new LinkedList<String>();
 		
@@ -52,17 +52,10 @@ public class SymbolicMath {
 			}
 		}
 		
-		String result = operationStack.peek();
-
-		/*
-		Iterator<Irrational> itr = irrationalarray.iterator();
-		while(itr.hasNext()) {
-			result += " + ";
-			result += itr.next().toString();
-		}
-		*/
+		return operationStack.peek();if (length == 0) return "";
 		
-		return result;
+		irrationalarray.clear();
+
 		
 	}
 	
@@ -178,6 +171,12 @@ public class SymbolicMath {
 	public static Fraction raise(String arg1, String arg2){
 		Fraction f1 = new Fraction(arg2);
 		Fraction f2 = new Fraction(arg1); // now in form f1^f2
+		if(f2.getNumerator().getNum()<0){
+			Irrational temp = new Irrational(f1.getDenominator().toString());
+			f1.setNumerator(f1.getDenominator());
+			f1.setDenominator(temp);
+			f2.getNumerator().setNum(f2.getNumerator().getNum()*-1);
+		}
 		if (f2.toString().equals("1/2")){ //special case of raising to 1/2 == sqrt:
 			f1 = sqrt(f1.toString());
 		}
@@ -218,11 +217,5 @@ public class SymbolicMath {
 		return ans;
 	}
 	
-	public static void addIrrationalItem(Irrational new_item){
-		irrationalarray.add(new_item);
-	}
-	public Irrational getIrrationalItem(int i){
-		return irrationalarray.get(i);
-	}
-	
+
 }
