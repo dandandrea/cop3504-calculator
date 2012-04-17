@@ -1,3 +1,5 @@
+import java.rmi.MarshalException;
+
 public class Irrational {
 	
 	// Worst case format => 3  * pi^3 * e^3 * sqrt:2, modeled as Num*pi^Pie*e^Ee*sqrt:Sqr, where Sqr can be integer or irrational (ie 2*pi)
@@ -156,22 +158,35 @@ public class Irrational {
 		}
 		return toString;
 	}
-	public void add(Irrational num2){
+	public boolean add(Irrational num2){
 		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr==this.getSqr()){
 			this.Num = num2.getNum() + this.Num;
+			return true;
 		}else{
-			SymbolicMath.addIrrationalItem(num2);
-			SymbolicMath.addIrrationalItem(this);
+			/*
+			if (!SymbolicMath.isInteger(this.toString()))
+				SymbolicMath.addIrrationalItem(this);
+			if (!SymbolicMath.isInteger(num2.toString()))
+			{
+				this.Num = num2.getNum();
+				this.Ee = num2.getEe();
+				this.Pie = num2.getPie();
+				this.Sqr = num2.getSqr();
+				SymbolicMath.addIrrationalItem(num2);
+			}
+			*/
+			throw new IllegalStateException("TOO COMPLICATED :(");
 		}
 	}
-	public void subtract(Irrational num2){
+	public boolean subtract(Irrational num2){
 		if(this.Ee==num2.getEe()&&this.Pie==num2.getPie()&&this.Sqr==this.getSqr()){
 			this.Num = num2.getNum() - this.Num;
+			return true;
 		}else{
 			SymbolicMath.addIrrationalItem(this);
 			num2.setNum(-1*num2.getNum());
 			SymbolicMath.addIrrationalItem(num2);
-			
+			return false;
 		}
 	}
 	public void multiply(Irrational num2){

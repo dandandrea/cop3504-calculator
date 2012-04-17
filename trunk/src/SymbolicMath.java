@@ -12,6 +12,9 @@ public class SymbolicMath {
 		
 		//Gets length of our String[]
 		int length = expression.length;
+		if (length == 0) return "";
+		
+		irrationalarray.clear();
 		
 		//Initializes our "Stack"
 		LinkedList<String> operationStack = new LinkedList<String>();
@@ -28,7 +31,7 @@ public class SymbolicMath {
 				//Java can't use switch() with strings, so... :/
 				if(thisElement.equals("+")) {
 					//Pushes result of add() into stack, while popping two previous elements.
-					operationStack.addFirst(add(operationStack.pop(), operationStack.pop()));
+					operationStack.addFirst(add(operationStack.pop(), operationStack.pop()).toString());
 				}
 				//Etc.
 				if(thisElement.equals("-")) {
@@ -49,7 +52,17 @@ public class SymbolicMath {
 			}
 		}
 		
-		return operationStack.peek();
+		String result = operationStack.peek();
+
+		/*
+		Iterator<Irrational> itr = irrationalarray.iterator();
+		while(itr.hasNext()) {
+			result += " + ";
+			result += itr.next().toString();
+		}
+		*/
+		
+		return result;
 		
 	}
 	
@@ -73,14 +86,10 @@ public class SymbolicMath {
 	 * @param arg2
 	 * @return
 	 */
-	public static String add(String arg1, String arg2){
+	public static Fraction add(String arg1, String arg2){
 		Fraction f1 = new Fraction(arg1);
 		Fraction f2 = new Fraction(arg2);
-		try{
-			return add(f1, f2).toString();
-		} catch (Exception e){
-			return (arg1 + "+" + arg2);
-		}
+		return add(f1, f2);
 	}
 	
 	/**
@@ -104,6 +113,7 @@ public class SymbolicMath {
 	 * @param arg1
 	 * @param arg2
 	 * @return
+	 * @throws MarshalException 
 	 */
 	public static Fraction add(Fraction arg1, Fraction arg2){
 		
@@ -160,7 +170,7 @@ public class SymbolicMath {
 		f2 = new Fraction(f2.getDenominator().toString(), f2.getNumerator().toString());
 		if(f2.getDenominator().getNum() == 0)
 		{
-			throw new ArithmeticException("Calculation error: cannot divide by 0");
+			throw new ArithmeticException("Cannot divide by zero");
 		}
 		return multiply(f1, f2);
 	}
@@ -184,7 +194,7 @@ public class SymbolicMath {
 		Calculator c = new Calculator();
 		float nTest = Float.valueOf(c.calculate(arg1, true));
 		if (nTest < 0)
-			throw new IllegalArgumentException("Calculation error: negative sqrt not allowed");
+			throw new IllegalArgumentException("Cannot find square root of negative number");
 		
 		Fraction f1 = new Fraction(arg1);
 		if (isInteger(f1.getNumerator().toString())
@@ -208,5 +218,11 @@ public class SymbolicMath {
 		return ans;
 	}
 	
-
+	public static void addIrrationalItem(Irrational new_item){
+		irrationalarray.add(new_item);
+	}
+	public Irrational getIrrationalItem(int i){
+		return irrationalarray.get(i);
+	}
+	
 }
