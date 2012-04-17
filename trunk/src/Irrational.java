@@ -8,6 +8,7 @@ public class Irrational {
 	
 	//Constructor to handle a string input of any variation of format 'Num*pi^Pie*e^Ee*sqrt:Sqr'
 	public Irrational (String expression){
+		//check if theres a negative in expression
 		if (quickTest(expression) == true){ // initial check if string is just an integer
 			return;
 		}
@@ -15,7 +16,7 @@ public class Irrational {
 		String[] eTest = expression.split("e"); // if e is in expression eTest.length == 2
 		String[] sqrtTest = expression.split("sqrt:"); // if sqrt: is in expression sqrtTest.length == 2
 		String[] numTest = expression.split("\\*"); // tests for multiple parts to expression
-
+		
 		//check for integer at beginning of expression
 		expression = integerTest(expression, numTest); //assigns Num value, returns expression without Num in it (if it's there)
 		numTest = expression.split("\\*");
@@ -113,17 +114,19 @@ public class Irrational {
 		String toString = "";
 		if (Num == 0)
 			return toString = "0";
-		if (((Num == 1) || (Num == -1)) && (Sqr == "1") && (Pie == 0) && (Ee == 0)){
+		if (((Num == 1) || (Num == -1)) && (Sqr.equals("1")) && (Pie == 0) && (Ee == 0)){
 			if (Num == 1)
 				return toString = "1";
 			else
 				return toString = "-1";
 		}
-		if ((Num == -1))
-			toString = "-";
-		if ((Num > 1) || (Num < -1))
-			toString = toString + Integer.toString(Num);	
-		
+
+		if ((Num > 1) || (Num < 0)){
+			if (Num == -1)
+				toString = "-";
+			else
+				toString = Integer.toString(Num);
+		}
 		if (Pie != 0){
 			if ((Pie == 1) && (toString == ""||toString == "-"))
 				toString = toString + "pi";
@@ -144,7 +147,7 @@ public class Irrational {
 			else
 				toString = toString + "*" + "e" + "^" + Integer.toString(Ee);
 		}	
-		if (Sqr != "1"){
+		if (!Sqr.equals("1")){
 			if (toString == "")
 				toString = "sqrt:" + Sqr;
 			else
@@ -174,59 +177,40 @@ public class Irrational {
 		this.Num = num2.getNum()*this.Num;
 		this.Ee = this.Ee+num2.getEe();
 		this.Pie = this.Pie+num2.getPie();
-	//sqrt not avaialble yet
-	}
-	public void exponentiate(Irrational num2){
-		if(num2.getEe()==0 && num2.getSqr().equals("1")&&num2.getPie()==0){
-			this.Ee = num2.getNum()*this.Ee;
-			this.Pie = num2.getNum()*this.Pie;
-			this.Num = (int) Math.pow(this.Num, num2.getNum());
-			if(num2.Num%2==0&&!this.Sqr.equals("1")){
-				Irrational sqred = new Irrational(this.Sqr);
-				
-				sqred.setEe((int) ((double)num2.getNum()*.5)*sqred.getEe());
-				sqred.setPie((int) ((double)num2.getNum()*.5)*sqred.getPie());
-				sqred.setNum((int) Math.pow(sqred.getNum(), (double) num2.getNum()/2));
-				
-				this.Ee = sqred.getEe()+this.Ee;
-				this.Pie = sqred.getPie()+this.Pie;
-				this.Num = this.Num*sqred.Num;
-				this.Sqr="1";
-				
-			}else{
-				Irrational sqred = new Irrational(this.Sqr);
-				sqred.setEe(num2.getNum()*sqred.getEe());
-				sqred.setPie(num2.getNum()*sqred.getPie());
-				sqred.setNum((int) Math.pow(sqred.getNum(),  num2.getNum()));
-				this.Sqr = sqred.toString();
+		//sqrt handling
+		if ((this.Sqr.equals("1")||(num2.getSqr().equals("1")))&& //case: sqrt's part of either number but not both
+				(!((this.Sqr.equals("1"))&&(num2.getSqr().equals("1"))))){
+			if (this.Sqr.equals("1"))
+				this.Sqr = num2.getSqr();
+		}
+		if (this.Sqr.equals(num2.getSqr())&&!this.Sqr.equals("1")){//case: sqrt's are equal, get rid of the sqrt
+			if (!this.Sqr.contains("\\+")||!this.Sqr.contains("\\-")){//doesn't work, looping the multiplication 
+				this.multiply((new Irrational(this.Sqr)));
+				//String[] x = this.toString().split("sqrt:");
+				//String noSqr = x[0];
+				//Fraction f = new Fraction(SymbolicMath.multiply(noSqr, this.getSqr()).toString());
+				//...not sure where to go from here
 			}
 		}
 	}
-	
-	private void setPie(int pow) {
-		this.Pie = pow;
-		
+	public void exponentiate(Irrational num2){
+		this.Ee = num2.getNum()*this.Ee;
+		this.Pie = num2.getNum()*this.Pie;
+		this.Num = (int) Math.pow(this.Num, num2.getNum());
 	}
 
-	private void setEe(int i) {
-		this.Ee = i;
-		
-	}
-
-	public void sqrt(){
-		
-	}
 	public void setNum(int num){
 		this.Num = num;
 	}
-	
-	//testing purposes only
-	public static void main(String[] args) {
-		Irrational b = new Irrational("pi*sqrt:e");
-		Irrational c = new Irrational("3");
-		b.exponentiate(c);
-		System.out.println(b.getNum() + ", "  + b.getPie() + ", " + b.getEe() + ", " + b.getSqr() + " ******** " + b.toString());
-		
+
+	public void setPie(int pie){
+		this.Pie = pie;
+	}
+	public void setEe(int ee){
+		this.Ee = ee;
+	}
+	public void setSqr(String sqr){
+		this.Sqr = sqr;
 	}
 	
 }
