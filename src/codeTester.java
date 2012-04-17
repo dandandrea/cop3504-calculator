@@ -34,7 +34,7 @@ public class codeTester {
 				//testing divide and simplify with numbers and irrationals
 				,"1/2","2/6","16/8","2/pi","e/2","e/pi","(2*pi)/(2*e)","(2*sqrt:3)/(2*sqrt:3)","pi^3/pi^2","e^2/e^3"
 				//testing sqrt with numbers and irrationals
-				,"sqrt:3","sqrt:4","sqrt:4/2","sqrt:(4/2)", "sqrt:(5/2)","sqrt:80","sqrt:pi","sqrt:e^2"
+				,"sqrt:3","sqrt:4","sqrt:4/2","sqrt:(4/2)", "sqrt:(5/2)","sqrt:80","sqrt:pi","sqrt:(e^2)"
 				//testing exponents with numbers and irrationals
 				,"2^2","5^3","2^1","2^(1/2)","25^(1/2)"
 				//t
