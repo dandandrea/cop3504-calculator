@@ -164,7 +164,7 @@ public class SymbolicMath {
 		f2 = new Fraction(f2.getDenominator().toString(), f2.getNumerator().toString());
 		if(f2.getDenominator().getNum() == 0)
 		{
-			throw new ArithmeticException("Calculation error: cannot divide by zero");
+			throw new ArithmeticException("Calculation error: cannot divide by 0");
 		}
 		return multiply(f1, f2);
 	}
