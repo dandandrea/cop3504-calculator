@@ -119,6 +119,7 @@ public class Postfix {
 		boolean leftParenMatch = true;
 		for (int i = 0; i < expression.length; i++) {
 			// parenthesis matching.
+			if(isLeftParenthesis(expression[i]))
 			if (isLeftParenthesis(expression[i])) {
 
 				leftParenMatch = false;
