@@ -70,7 +70,6 @@ public class SymbolicMath {
 	
 	/**
 	 * High-level add method (using strings).
-	 * @param arg1
 	 * @param arg2
 	 * @return
 	 */
@@ -156,6 +155,10 @@ public class SymbolicMath {
 		Fraction f1 = new Fraction(arg2);
 		Fraction f2 = new Fraction(arg1);
 		f2 = new Fraction(f2.getDenominator().toString(), f2.getNumerator().toString());
+		if(f2.getDenominator().getNum() == 0)
+		{
+			throw new ArithmeticException("Cannot divide by zero");
+		}
 		return multiply(f1, f2);
 	}
 	
