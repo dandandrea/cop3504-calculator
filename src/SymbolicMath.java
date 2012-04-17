@@ -51,10 +51,11 @@ public class SymbolicMath {
 				}
 			}
 		}
-		
-		return operationStack.peek();if (length == 0) return "";
-		
 		irrationalarray.clear();
+		if (length == 0) return "";
+		return operationStack.peek();
+		
+		
 
 		
 	}
@@ -163,7 +164,7 @@ public class SymbolicMath {
 		f2 = new Fraction(f2.getDenominator().toString(), f2.getNumerator().toString());
 		if(f2.getDenominator().getNum() == 0)
 		{
-			throw new ArithmeticException("Cannot divide by zero");
+			throw new ArithmeticException("Calculation error: cannot divide by zero");
 		}
 		return multiply(f1, f2);
 	}
@@ -193,7 +194,7 @@ public class SymbolicMath {
 		Calculator c = new Calculator();
 		float nTest = Float.valueOf(c.calculate(arg1, true));
 		if (nTest < 0)
-			throw new IllegalArgumentException("Cannot find square root of negative number");
+			throw new IllegalArgumentException("Calculation error: negative sqrt not allowed");
 		
 		Fraction f1 = new Fraction(arg1);
 		if (isInteger(f1.getNumerator().toString())
