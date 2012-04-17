@@ -135,6 +135,7 @@ public class SymbolicMath {
 	public static Fraction multiply(String arg1, String arg2){
 		Fraction f1 = new Fraction(arg1);
 		Fraction f2 = new Fraction(arg2);
+		
 		return multiply(f1, f2);
 	}
 	
