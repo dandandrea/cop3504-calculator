@@ -105,6 +105,9 @@ public class Calculator {
 				
 				return answer;
 			} catch (Exception e) {
+				if (e.getMessage().equals("TOO COMPLICATED :(")) {
+					return expression;
+				}
 				return e.getMessage();
 			}
 
