@@ -67,51 +67,34 @@ public class Fraction {
 		return Denominator;
 	}
 
-	private void simplify() {
-		//rationalize
-		if (!this.Denominator.getSqr().equals("1")) {
-			this.Numerator.multiply(this.Denominator);
-			this.Denominator.multiply(this.Denominator);
+	private void simplify(){
+		//Fraction numFrac = new Fraction(Integer.toString(this.Numerator.getNum()), Integer.toString(this.Denominator.getNum()));
+		Irrational numer = new Irrational("1");
+		Irrational denomin = new Irrational("1");
+//		if(isInteger(this.Numerator.toString())&&isInteger(this.Denominator.toString())){
+		if(this.Denominator.getNum()!=1){//takes care of simplifying numbers
+			EulerSimplify();				
+//			numer.setNum(numFrac.getNumerator().getNum());
+//			denomin.setNum(numFrac.getDenominator().getNum());
 		}
-		//simplify e terms
-		if (this.Numerator.getEe() >= this.Denominator.getEe()
-				&& this.Denominator.getEe() > 0) {
-			this.Numerator.setEe(this.Numerator.getEe() - this.Denominator.getEe());
-			this.Denominator.setEe(0);
-		}else if (this.Numerator.getEe() < this.Denominator.getEe()
-				&& this.Denominator.getEe() > 0) {
-			this.Numerator.setEe(0);
-			this.Denominator.setEe(this.Denominator.getEe()-this.Numerator.getEe());
-		}
-		
-		//simplify pi terms
-		if (this.Numerator.getPie() >= this.Denominator.getPie()
-				&& this.Denominator.getPie() > 0) {
-			
-			this.Numerator.setPie(this.Numerator.getPie() - this.Denominator.getPie());
-			this.Denominator.setPie(0);
-		}else if(this.Numerator.getPie() >= this.Denominator.getPie()
-				&& this.Denominator.getPie() > 0) {
-			
-			this.Numerator.setPie(0);
-			this.Denominator.setPie(this.Denominator.getPie()-this.Numerator.getPie());
+//		}
+		if(this.Numerator.getSqr().equals(this.Denominator.getSqr())){
+			this.Numerator.setSqr("1");
+			this.Denominator.setSqr("1");
 		}
 		
-
-			//simplifies rational part of fraction
-
-				EulerSimplify();
-
-
+//		this.Numerator = numer;
+//		this.Denominator = denomin;
 	}
+
 
 	private void EulerSimplify() {
 		int numer, denom, temp, pastdenom = 0;
-		Boolean neg = true;
+		Boolean neg = false;
 		numer = this.Numerator.getNum();
 		denom = this.Denominator.getNum();
 		if ((numer < 0 || denom < 0) && !(denom < 0 && numer < 0)) {
-			neg = false;
+			neg = true;
 		}
 		Double decimal = (double) numer / (double) denom;
 		numer = 0;
