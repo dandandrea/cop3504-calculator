@@ -31,6 +31,7 @@ public class Irrational {
 			Sqr = sqrtTest[1];
 		else
 			Sqr = "1";
+		
 	}
 	
 	private String[] pi_eTest(String expression, String[] numTest, String[] piTest, String test){
@@ -224,5 +225,5 @@ public class Irrational {
 	public void setSqr(String sqr){
 		this.Sqr = sqr;
 	}
-	
+
 }
