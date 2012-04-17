@@ -43,12 +43,10 @@ public class Calculator {
 		// replace ans with actual answer
 		try {
 			if (expression.contains("ans")) {
-				if (!ApproximateMath.isNumber((history.get(currentHistoryItem)
-						.getAnswer()))) {
+				if (history.get(currentHistoryItem).getAnswer() != null && history.get(currentHistoryItem).getAnswer().indexOf(".") >= 0) {
 					return "Expressions containing decimals are not supported.";
 				} else {
-					expression.replace("ans", history.get(currentHistoryItem)
-							.getAnswer());
+					expression = expression.replace("ans", history.get(currentHistoryItem).getAnswer());
 				}
 			}
 
@@ -56,7 +54,6 @@ public class Calculator {
 			System.out.println("ans is not set; please visit History menu");
 		}
 
-		//System.out.println("Answer is always 42.");
 		// Postfix conversion
 		try {
 			
