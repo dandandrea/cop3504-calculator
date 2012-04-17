@@ -151,12 +151,12 @@ public class Postfix {
 					if ((beginOperator(expression[i - 1]) 
 							|| beginOperator(expression[i + 1]))) {
 						throw new IllegalStateException(
-								"Expression is mal-formed");
+								"Expression is mal-formed: adjacent operators");
 					}
 				}
 				if (expression[i].equals("sqrt:")){
 					if (expression[i - 1].equals("sqrt:") || (expression[i + 1].equals("sqrt:"))){
-						throw new IllegalStateException("Expression is mal-formed");
+						throw new IllegalStateException("Expression is mal-formed: adjacent operators");
 					}
 				}
 				// two numbers cannot be adjacent to each other in a wellformed
@@ -166,7 +166,7 @@ public class Postfix {
 							|| isNumber(expression[i + 1])) {
 
 						throw new IllegalStateException(
-								"Expression is mal-formed");
+								"Expression is mal-formed: adjacent numbers");
 					}
 				}
 			}
@@ -178,7 +178,7 @@ public class Postfix {
 					if (isOperator(expression[i - 1])) {
 
 						throw new IllegalStateException(
-								"Expression is mal-formed");
+								"Expression is mal-formed: adjacent operators");
 					}
 				}
 				// two numbers cannot be adjacent to each other in a wellformed
@@ -187,7 +187,7 @@ public class Postfix {
 					if (isNumber(expression[i - 1])) {
 
 						throw new IllegalStateException(
-								"Expression is mal-formed");
+								"Expression is mal-formed: adjacent numbers");
 					}
 				}
 			}
@@ -195,7 +195,7 @@ public class Postfix {
 		// Every parenthesis must be matched.
 		if (!(leftParenMatch && rightParenMatch == 0)) {
 
-			throw new IllegalStateException("Parenthesis are not matched");
+			throw new IllegalStateException("Expression is mal-formed: unmatched parenthesis");
 		}
 	}
 
