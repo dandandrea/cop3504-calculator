@@ -6,7 +6,7 @@ public class Calculator {
 	private int currentHistoryItem;
 	private List<HistoryItem> history;
 	private String answer;
-
+	
 	//creates an ArrayList of history items
 	public Calculator() 
 	{
@@ -72,8 +72,8 @@ public class Calculator {
 		// Approximate calculation
 		if (approximate) {
 			try {
-				ApproximateMath approx = new ApproximateMath();
-				answer = approx.Approximate(post);
+				
+				answer = ApproximateMath.Approximate(post);
 	
 				// Only add the answer if it was not null
 				if (answer != null && answer.trim().equals("") == false) {
